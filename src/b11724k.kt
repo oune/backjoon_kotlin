@@ -47,13 +47,14 @@ fun bfs(map: Array<ArrayList<Int>>, visited: Array<Boolean>, start: Int) {
     }
 }
 
-fun dfs(map: Array<ArrayList<Int>>, visited: Array<Boolean>, start: Int) {
-    val now = map[start]
-    visited[start] = true
+fun dfs(map: Array<ArrayList<Int>>, visited: Array<Boolean>, start: Int) :Unit = when {
+    visited[start] -> Unit
+    else -> {
+        val now = map[start]
+        visited[start] = true
 
-    now.filter {
-        !visited[it]
-    }.forEach{
-        dfs(map, visited, it)
+        now.forEach{
+            dfs(map, visited, it)
+        }
     }
 }
