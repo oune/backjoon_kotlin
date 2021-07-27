@@ -1,6 +1,7 @@
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.util.*
+import kotlin.collections.ArrayList
 
 fun main() = with (BufferedReader(InputStreamReader(System.`in`))) {
     val (n , m) = readLine().split(" ").map {
@@ -21,7 +22,7 @@ fun main() = with (BufferedReader(InputStreamReader(System.`in`))) {
     var count = 0
     for (i in 1 .. n) {
         if (!visited[i]) {
-            bfs(map, visited, i)
+            dfs(map, visited, i)
             count++
         }
     }
@@ -42,6 +43,20 @@ fun bfs(map: Array<ArrayList<Int>>, visited: Array<Boolean>, start: Int) {
                 que.add(it)
                 visited[it] = true
             }
+        }
+    }
+}
+
+tailrec fun dfs(map: Array<ArrayList<Int>>, visited: Array<Boolean>, start: Int) : Unit = when {
+    visited[start] -> Unit
+    else -> {
+        val now = map[start]
+        visited[start] = true
+
+        now.filter {
+            !visited[it]
+        }.forEach{
+            dfs(map, visited, it)
         }
     }
 }
