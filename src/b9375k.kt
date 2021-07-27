@@ -12,11 +12,7 @@ fun main() = with (BufferedReader(InputStreamReader(System.`in`))) {
         repeat(clothNum) {
             val (name, type) = readLine().split(" ")
 
-            if (closet.containsKey(type)) {
-                closet[type] = closet[type]!!.plus(1)
-            } else {
-                closet[type] = 1
-            }
+            closet[type] = closet.getOrDefault(type, 0) + 1
         }
 
         var res = 1
