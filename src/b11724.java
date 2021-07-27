@@ -1,27 +1,13 @@
 import java.io.*;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-class Pair {
-    private int first;
-    private int second;
-
-    public Pair(int first, int second) {
-        this.first = first;
-        this.second = second;
-    }
-
-    public int getFirst() {
-        return first;
-    }
-
-    public int getSecond() {
-        return second;
-    }
-}
-
 public class b11724 {
+    static boolean[] visited;
+    static LinkedList<Integer>[] map;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -31,13 +17,13 @@ public class b11724 {
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
 
-        boolean[] visited = new boolean[n + 1];
-        for (int i = 0; i < visited.length; i++) {
-            visited[i] = false;
-        }
+        visited = new boolean[n + 1];
+        Arrays.fill(visited, false);
 
-        Queue<Integer> que = new LinkedList<>();
-        LinkedList<Pair> list = new LinkedList<>();
+        map = new LinkedList[n + 1];
+        for (int i = 1; i < map.length; i++) {
+            map[i] = new LinkedList<>();
+        }
 
         int u, v;
         for (int i = 0; i < m; i++) {
@@ -45,39 +31,15 @@ public class b11724 {
             u = Integer.parseInt(st.nextToken());
             v = Integer.parseInt(st.nextToken());
 
-            list.add(new Pair(u, v));
+            map[u].add(v);
+            map[v].add(u);
         }
 
         int count = 0;
-        while(!list.isEmpty()) {
-            count++;
-            Pair side = list.get(0);
-            list.remove(0);
-
-            que.add(side.getFirst());
-            que.add(side.getSecond());
-
-            while (!que.isEmpty()) {
-                int now = que.poll();
-                visited[now] = true;
-
-                for (int i = 0; i < list.size(); i++) {
-                    Pair pair = list.get(i);
-                    int visit = -1;
-
-                    if (pair.getFirst() == now) {
-                        visited[pair.getSecond()] = true;
-                        visit = pair.getFirst();
-                        list.remove(i);
-                    } else if (pair.getSecond() == now) {
-                        visited[pair.getFirst()] = true;
-                        visit = pair.getSecond();
-                        list.remove(i);
-                    }
-                    if (visit != -1 && !visited[visit]) {
-                        que.add(visit);
-                    }
-                }
+        for (int i = 1; i <= n; i++) {
+            if (!visited[i]) {
+                bfs(i);
+                count++;
             }
         }
 
@@ -85,4 +47,24 @@ public class b11724 {
         bw.flush();
         bw.close();
     }
+
+    public static void bfs(int start) {
+        Queue<Integer> que = new LinkedList<>();
+        que.add(start);
+
+        while(!que.isEmpty()) {
+            int now = que.poll();
+            visited[now] = true;
+            LinkedList<Integer> grape = map[now];
+
+            for (int point : grape) {
+                if (!visited[point]) {
+                    visited[point] = true;
+                    que.add(point);
+                }
+            }
+        }
+    }
 }
+
+
