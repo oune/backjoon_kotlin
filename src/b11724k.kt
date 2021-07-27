@@ -19,9 +19,9 @@ fun main() = with (BufferedReader(InputStreamReader(System.`in`))) {
     }
 
     var count = 0
-    repeat(n) {
-        if (!visited[it]) {
-            bfs(map, visited, it)
+    for (i in 1 .. n) {
+        if (!visited[i]) {
+            bfs(map, visited, i)
             count++
         }
     }
@@ -30,7 +30,7 @@ fun main() = with (BufferedReader(InputStreamReader(System.`in`))) {
 }
 
 fun bfs(map: Array<ArrayList<Int>>, visited: Array<Boolean>, start: Int) {
-    var que : Queue<Int> = LinkedList<Int>()
+    val que : Queue<Int> = LinkedList<Int>()
     que.add(start)
 
     while(que.isNotEmpty()) {
@@ -40,7 +40,7 @@ fun bfs(map: Array<ArrayList<Int>>, visited: Array<Boolean>, start: Int) {
         route.forEach {
             if (!visited[it]) {
                 que.add(it)
-                visited[it] = true;
+                visited[it] = true
             }
         }
     }
