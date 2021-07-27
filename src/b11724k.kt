@@ -1,26 +1,27 @@
+import java.io.BufferedReader
+import java.io.InputStreamReader
 import java.util.*
 
-fun main() {
-    var st = StringTokenizer(readLine())
-    val n = st.nextToken().toInt()
-    val m = st.nextToken().toInt()
+fun main() = with (BufferedReader(InputStreamReader(System.`in`))) {
+    val (n , m) = readLine().split(" ").map {
+        it.toInt()
+    }
 
     val visited = Array(n + 1) { false }
-    val map = Array<List<Int>>(n + 1){ emptyList()}
+    val map = Array(n + 1){ ArrayList<Int>() }
 
-    for (i in 1 .. m) {
-        st = StringTokenizer(readLine())
-        val u = st.nextToken().toInt()
-        val v = st.nextToken().toInt()
-
-        map[u] = map[u] + listOf(v)
-        map[v] = map[v] + listOf(u)
+    repeat(m) {
+        val (u, v) = readLine().split(" ").map {
+            it.toInt()
+        }
+        map[v].add(u)
+        map[u].add(v)
     }
 
     var count = 0
-    for (i in 1 .. n) {
-        if (!visited[i]) {
-            bfs(map, visited, i)
+    repeat(n) {
+        if (!visited[it]) {
+            bfs(map, visited, it)
             count++
         }
     }
@@ -28,20 +29,19 @@ fun main() {
     print(count)
 }
 
-fun bfs(map: Array<List<Int>>, visited: Array<Boolean>, start: Int) {
-    var que = listOf(start)
+fun bfs(map: Array<ArrayList<Int>>, visited: Array<Boolean>, start: Int) {
+    var que : Queue<Int> = LinkedList<Int>()
+    que.add(start)
 
     while(que.isNotEmpty()) {
-        val now = que.first();
-        val route = map[now];
+        val now = que.poll()
+        val route = map[now]
 
         route.forEach {
             if (!visited[it]) {
-                que = que + it
+                que.add(it)
                 visited[it] = true;
             }
         }
-
-        que = que.drop(1)
     }
 }
