@@ -2,7 +2,6 @@ import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
-import java.lang.StringBuilder
 import java.util.*
 
 fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
@@ -15,9 +14,9 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
         val maxHeap = PriorityQueue<Int>(Collections.reverseOrder())
 
         repeat(calCount) {
-            val line = readLine()!!.split(" ")
-            val operator = line[0]
-            val operand = line[1].toInt()
+            val tokenizer = StringTokenizer(readLine())
+            val operator = tokenizer.nextToken()
+            val operand = tokenizer.nextToken().toInt()
 
             when (operator){
                 "I" -> {
