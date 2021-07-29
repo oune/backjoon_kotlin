@@ -18,21 +18,16 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
             val operator = tokenizer.nextToken()
             val operand = tokenizer.nextToken().toInt()
 
-            when (operator){
-                "I" -> {
-                    minHeap.add(operand)
-                    maxHeap.add(operand)
-                }
-                "D" -> when {
-                    minHeap.isEmpty() -> { }
-                    operand == 1 -> {
-                        val max = maxHeap.poll()
-                        minHeap.remove(max)
-                    }
-                    operand ==  -1 -> {
-                        val min = minHeap.poll()
-                        maxHeap.remove(min)
-                    }
+            if (operator == "I") {
+                minHeap.add(operand)
+                maxHeap.add(operand)
+            } else if (minHeap.isNotEmpty() && operator == "D") {
+                if (operand == 1) {
+                    val max = maxHeap.poll()
+                    minHeap.remove(max)
+                } else if (operand == -1) {
+                    val min = minHeap.poll()
+                    maxHeap.remove(min)
                 }
             }
         }
