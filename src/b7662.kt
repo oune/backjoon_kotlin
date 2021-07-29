@@ -1,11 +1,13 @@
 import java.io.BufferedReader
+import java.io.BufferedWriter
 import java.io.InputStreamReader
+import java.io.OutputStreamWriter
 import java.lang.StringBuilder
 import java.util.*
 
 fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     val testCase = readLine()!!.toInt()
-    val out = StringBuilder()
+    val out = BufferedWriter(OutputStreamWriter(System.out))
 
     repeat(testCase) {
         val calCount = readLine()!!.toInt()
@@ -42,5 +44,6 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
             out.append("EMPTY\n")
     }
 
-    print(out.toString())
+    out.flush()
+    out.close()
 }
