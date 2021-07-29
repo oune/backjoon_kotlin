@@ -32,8 +32,13 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
             }
         }
 
-        if (maxHeap.isNotEmpty())
-            out.append("${maxHeap.poll()} ${minHeap.poll()}\n")
+        if (maxHeap.isNotEmpty()) {
+            out.append(maxHeap.poll().toString())
+            out.append(" ")
+            out.append(minHeap.poll().toString())
+            out.append("\n")
+        }
+
         else
             out.append("EMPTY\n")
     }
