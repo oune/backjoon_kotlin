@@ -11,8 +11,7 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
 
     repeat(testCase) {
         val calCount = readLine()!!.toInt()
-        val minHeap = PriorityQueue<Int>()
-        val maxHeap = PriorityQueue<Int>(Collections.reverseOrder())
+        val map = TreeMap<Int, Int>()
 
         repeat(calCount) {
             val line = readLine()!!.split(" ")
@@ -21,25 +20,33 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
 
             when (operator){
                 "I" -> {
-                    minHeap.add(operand)
-                    maxHeap.add(operand)
+                    map[operand] = map.getOrDefault(operand, 0) + 1
                 }
                 "D" -> when {
-                    minHeap.isEmpty() -> { }
+                    map.isEmpty() -> { }
+
                     operand == 1 -> {
-                        val max = maxHeap.poll()
-                        minHeap.remove(max)
+                        val max = map.lastKey()
+                        map[max] = map[max]!! - 1
+
+                        if (map[max] == 0) {
+                            map.remove(max)
+                        }
                     }
                     operand ==  -1 -> {
-                        val min = minHeap.poll()
-                        maxHeap.remove(min)
+                        val min = map.firstKey()
+                        map[min] = map[min]!! -1
+
+                        if (map[min] == 0) {
+                            map.remove(min)
+                        }
                     }
                 }
             }
         }
 
-        if (maxHeap.isNotEmpty())
-            out.append("${maxHeap.poll()} ${minHeap.poll()}\n")
+        if (map.isNotEmpty())
+            out.append("${map.lastKey()} ${map.firstKey()}\n")
         else
             out.append("EMPTY\n")
     }
