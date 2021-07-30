@@ -8,7 +8,7 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))){
     val test = readLine()!!.toInt()
 
     repeat(test) {
-        val input = readLine()!!.toInt()
+        val input = readLine()!!.toLong()
         stout.append(p(input).toString())
         stout.newLine()
     }
@@ -16,11 +16,11 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))){
     stout.flush()
     stout.close()
 }
-fun p(num :Int): Int = p(num, 1, 1, 1)
+fun p(num :Long): Long = p(num, 1, 1, 1)
 
-tailrec fun p(num: Int, first: Int, second: Int, third: Int) : Int = when (num){
-    1 -> first
-    2 -> second
-    3 -> third
+tailrec fun p(num: Long, first: Long, second: Long, third: Long) : Long = when (num){
+    1L -> first
+    2L -> second
+    3L -> third
     else -> p(num - 1, second, third, first + second)
 }
