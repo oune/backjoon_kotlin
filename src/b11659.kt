@@ -7,27 +7,24 @@ import java.util.*
 
 fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     val (nCount, m) = readLine().split(" ").map { it.toInt()}
-    val n = readLine().split(" ").map { it.toInt() }
-    val acc = accSum(n, listOf())
+
+    var sum = 0
+    val n = readLine().split(" ").map {
+        sum += it.toInt()
+        sum
+    }
+
     val sOut = BufferedWriter(OutputStreamWriter(System.out))
 
     repeat(m) {
         val (i, j) = readLine().split(" ").map { it.toInt() }
         if (i == 1) {
-            sOut.appendLine(acc[j - 1].toString())
+            sOut.appendLine(n[j - 1].toString())
         } else {
-            sOut.appendLine((acc[j - 1] - acc[i - 2]).toString())
+            sOut.appendLine((n[j - 1] - n[i - 2]).toString())
         }
     }
 
     sOut.flush()
     sOut.close()
-}
-
-tailrec fun accSum(list: List<Int>, acc:List<Int>) :List<Int> = when {
-    list.isEmpty() -> acc
-    acc.isEmpty() -> accSum(list.drop(1), listOf(list.first()))
-    else -> {
-        accSum(list.drop(1),acc + listOf(list.first() + acc.last()))
-    }
 }
