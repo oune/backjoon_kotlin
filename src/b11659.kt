@@ -1,26 +1,33 @@
 import java.io.BufferedReader
+import java.io.BufferedWriter
 import java.io.InputStreamReader
+import java.io.OutputStreamWriter
 import java.lang.StringBuilder
 import java.util.*
 
 fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     val (nCount, m) = readLine().split(" ").map { it.toInt()}
     val n = readLine().split(" ").map { it.toInt() }
+    val acc = accSum(n, listOf())
+    val sOut = BufferedWriter(OutputStreamWriter(System.out))
 
-    val sOut = StringBuilder()
     repeat(m) {
         val (i, j) = readLine().split(" ").map { it.toInt() }
-        sOut.appendLine(sum(i - 1, j - 1, n))
+        if (i == 1) {
+            sOut.appendLine(acc[j - 1].toString())
+        } else {
+            sOut.appendLine((acc[j - 1] - acc[i - 2]).toString())
+        }
     }
 
-    print(sOut.toString())
+    sOut.flush()
+    sOut.close()
 }
 
-fun sum(i: Int, j: Int, list: List<Int>) = sum (i, j, list, 0)
-
-tailrec fun sum(i: Int, j: Int, list: List<Int>, acc:Int) :Int = when {
-    i > j -> acc
+tailrec fun accSum(list: List<Int>, acc:List<Int>) :List<Int> = when {
+    list.isEmpty() -> acc
+    acc.isEmpty() -> accSum(list.drop(1), listOf(list.first()))
     else -> {
-        sum(i + 1, j, list, acc + list[i])
+        accSum(list.drop(1),acc + listOf(list.first() + acc.last()))
     }
 }
