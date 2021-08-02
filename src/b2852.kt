@@ -35,12 +35,27 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))){
 
         preScore = score
     }
-    if (preScore > 0) {
+    if (score > 0) {
         team1 = Pair(team1.first + 48 - preTime.first, team1.second - preTime.second)
-    } else {
+    } else if (score < 0){
         team2 = Pair(team2.first + 48 - preTime.first, team2.second - preTime.second)
     }
 
-    println("${team1.first}:${team1.second}")
-    println("${team2.first}:${team2.second}")
+    while (team1.second < 0) {
+        team1 = Pair(team1.first - 1, team1.second + 60)
+    }
+
+    while (team2.second < 0) {
+        team2 = Pair(team2.first - 1, team2.second + 60)
+    }
+
+    val format = { num: Int ->
+        if (num < 10) {
+            "0$num"
+        } else {
+            num.toString()
+        }
+    }
+    println("${format(team1.first)}:${format(team1.second)}")
+    println("${format(team2.first)}:${format(team2.second)}")
 }
