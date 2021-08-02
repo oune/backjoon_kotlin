@@ -26,43 +26,49 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))){
 
         if (score == 0) {
             if (preScore > 0) {
-                team1 = Pair(team1.first + minute - preTime.first, team1.second + second - preTime.second)
+                team1 = timeAdd(team1, preTime, minute, second)
             } else {
-                team2 = Pair(team2.first + minute - preTime.first, team2.second + second - preTime.second)
+                team2 = timeAdd(team2, preTime, minute, second)
             }
         }
 
         preScore = score
     }
     if (score > 0) {
-        team1 = Pair(team1.first + 48 - preTime.first, team1.second - preTime.second)
+        team1 = resTimeAdd(team1, preTime)
     } else if (score < 0){
-        team2 = Pair(team2.first + 48 - preTime.first, team2.second - preTime.second)
+        team2 = resTimeAdd(team2, preTime)
     }
 
-    while (team1.second < 0) {
-        team1 = Pair(team1.first - 1, team1.second + 60)
-    }
+    team1 = timeCheck(team1)
+    team2 = timeCheck(team2)
 
-    while (team2.second < 0) {
-        team2 = Pair(team2.first - 1, team2.second + 60)
-    }
 
-    while (team1.second > 59) {
-        team1 = Pair(team1.first + 1, team1.second - 60)
-    }
+    println(format(team1))
+    println(format(team2))
+}
 
-    while (team2.second > 59) {
-        team2 = Pair(team2.first + 1, team2.second - 60)
+fun timeAdd(team: Pair<Int, Int>, preTime: Pair<Int, Int>, minute: Int, second: Int) =  Pair(team.first + minute - preTime.first, team.second + second - preTime.second)
+fun resTimeAdd(team: Pair<Int, Int>, preTime: Pair<Int, Int>) = Pair(team.first + 48 - preTime.first, team.second - preTime.second)
+fun timeCheck(team: Pair<Int, Int>) :Pair<Int, Int> {
+    var teamTime = team
+    while (teamTime.second < 0) {
+        teamTime = Pair(teamTime.first - 1, teamTime.second + 60)
     }
+    while (teamTime.second > 59) {
+        teamTime = Pair(teamTime.first + 1, teamTime.second - 60)
+    }
+    return teamTime
+}
 
-    val format = { num: Int ->
-        if (num < 10) {
-            "0$num"
-        } else {
-            num.toString()
-        }
+fun format10 (num: Int): String {
+    if (num < 10) {
+        return "0$num"
+    } else {
+        return num.toString()
     }
-    println("${format(team1.first)}:${format(team1.second)}")
-    println("${format(team2.first)}:${format(team2.second)}")
+}
+
+fun format(time: Pair<Int, Int>): String {
+    return "${format10(time.first)}:${format10(time.second)}"
 }
