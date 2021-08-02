@@ -1,5 +1,4 @@
 import java.io.BufferedReader
-import java.io.BufferedWriter
 import java.io.InputStreamReader
 
 fun main() = with(BufferedReader(InputStreamReader(System.`in`))){
@@ -7,7 +6,7 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))){
 
     var score = 0
     var preTime = Pair(0, 0)
-    var preScore = 0;
+    var preScore = 0
     var team1 = Pair(0, 0)
     var team2 = Pair(0, 0)
 
@@ -47,6 +46,14 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))){
 
     while (team2.second < 0) {
         team2 = Pair(team2.first - 1, team2.second + 60)
+    }
+
+    while (team1.second > 59) {
+        team1 = Pair(team1.first + 1, team1.second - 60)
+    }
+
+    while (team2.second > 59) {
+        team2 = Pair(team2.first + 1, team2.second - 60)
     }
 
     val format = { num: Int ->
