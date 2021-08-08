@@ -6,17 +6,14 @@ import java.io.OutputStreamWriter
 fun main() = with (BufferedReader(InputStreamReader(System.`in`))){
     val input = readLine()
 
-    val questionReg = Regex("What is.*?\\?")
-    val whatReg = Regex("^What")
-    val questionMarkReg = Regex("\\?$")
-
     val sout = BufferedWriter(OutputStreamWriter(System.out))
 
-    val matchResult = questionReg.findAll(input)
-    matchResult.forEach {
-        val pre = whatReg.replace(it.value, "Forty-two")
-        val out = questionMarkReg.replace(pre, ".")
-        sout.appendLine(out)
+    val tokens = input.split("What").filter { it.contains("?")}
+
+    tokens.forEach {
+        sout.append("Forty-two")
+        sout.append(it.substring(0, it.indexOf("?")))
+        sout.appendLine(".")
     }
     
     sout.flush()
