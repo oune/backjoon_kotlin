@@ -4,10 +4,9 @@ import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 
 fun main() = with (BufferedReader(InputStreamReader(System.`in`))){
-    val input = readLine()
-
     val sout = BufferedWriter(OutputStreamWriter(System.out))
 
+    val input = readLine()
     val tokens = input.split("What").filter { it.contains("?")}
 
     tokens.forEach {
