@@ -3,17 +3,30 @@ import java.io.InputStreamReader
 import kotlin.math.ceil
 
 fun main() = with (BufferedReader(InputStreamReader(System.`in`))) {
-    val (x, y) = readLine().split(" ").map{ it.toInt() }
-    val z = y * 100 / x.toDouble()
-    val res = when (x) {
-        y -> -1
-        else -> {
-            val increment = (y + 1) * 100 / (x + 1).toDouble() - z
-            println("increment: $increment")
-            println("res: ${1 / increment}")
-            if (increment >= 1) 1 else ceil(1 / increment).toInt()
-        }
+    val (x, y) = readLine().split(" ").map{ it.toLong() }
+
+    val getWinRate = fun(x: Long, y: Long): Long {
+        return y * 100 / x
     }
 
-    print(res)
+    val z = getWinRate(x, y)
+
+    if (z >= 99) {
+        print(-1)
+    } else {
+        var start :Long = 1
+        var end :Long = x.toLong()
+        while (start <= end) {
+            val mid = (start + end) / 2
+            val rate = getWinRate(x + mid, y + mid)
+
+            if (rate > z) {
+                end = mid - 1
+            } else {
+                start = mid + 1
+            }
+        }
+
+        print(start)
+    }
 }
