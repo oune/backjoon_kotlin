@@ -2,17 +2,17 @@ import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
-import java.util.*
 
 fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     readLine()
-    val num = readLine().split(" ").map{ it.toInt() }
+    val trees = readLine().split(" ").map { it.toInt() }.sortedDescending().toMutableList()
 
-    val a = Stack<Int>()
-    val b = Stack<Int>()
+    trees.forEachIndexed { index, i -> // 매핑으로 변경 가능성은 없나?
+        trees[index] = i + index + 2
+    }
+    val max = trees.maxOf { it }
 
     val out = BufferedWriter(OutputStreamWriter(System.out))
-
+    out.append(max.toString())
     out.flush()
-    out.close()
 }

@@ -5,12 +5,8 @@ import java.io.OutputStreamWriter
 
 fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     val count = readLine().toInt()
-    val arr = Array<Int>(count) { 0 }
+    val arr = Array(count) { readLine().toInt() }
 
-    repeat(count) {
-        val input = readLine().toInt()
-        arr[it] = input
-    }
     merge(arr, 0, count - 1)
 
     val out = BufferedWriter(OutputStreamWriter(System.out))

@@ -2,7 +2,7 @@ import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
-import java.util.*
+import kotlin.collections.ArrayList
 
 fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     val wordCount = readLine().toInt()
@@ -10,13 +10,13 @@ fun main() = with(BufferedReader(InputStreamReader(System.`in`))) {
     repeat(wordCount) {
         val word = readLine()
         if (word.length % 2 == 0) {
-            val chars = Stack<Char>()
+            val chars = ArrayList<Char>()
 
             word.forEach {
-                if (chars.isNotEmpty() && chars.peek() == it) {
-                    chars.pop()
+                if (chars.isNotEmpty() && chars.last() == it) {
+                    chars.removeLast()
                 } else {
-                    chars.push(it)
+                    chars.add(it)
                 }
             }
 
