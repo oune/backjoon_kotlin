@@ -5,7 +5,6 @@ fun main() = with(System.`in`.bufferedReader()) {
     val m = readLine().toInt()
 
     arr = Array(n + 1) {it}
-    // TODO 필터 쓰는것 성공하고 시도해보자
     var sum = 0
     Array(m) {
         readLine().split(" ").map { it.toInt() }
