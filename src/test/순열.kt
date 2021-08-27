@@ -5,10 +5,10 @@ private val ans = Array(5){0}
 private val visit = Array(5){false}
 
 fun main() {
-    perm(0, 5)
-    println()
-    perm(0, 5, 3)
-    println()
+//    perm(0, 5)
+//    println()
+//    perm(0, 5, 3)
+//    println()
     subSet(0, 5)
     println()
     subSet(0, 5, 0)

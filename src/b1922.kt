@@ -18,13 +18,13 @@ fun main() = with(System.`in`.bufferedReader()) {
     print(sum)
 }
 
-fun findSet(p:Int):Int {
+private fun findSet(p:Int):Int {
     if (p != arr[p])
         arr[p] = findSet(arr[p])
     return arr[p]
 }
 
-fun union(a:Int, b:Int) {
+private fun union(a:Int, b:Int) {
     val ap = findSet(a)
     val bp = findSet(b)
     arr[ap] = bp

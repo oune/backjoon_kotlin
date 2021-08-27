@@ -1,9 +1,9 @@
-val visited = Array(201){Array(201){Array(201){false} } }
-val res = ArrayList<Int>()
+private val visited = Array(201){Array(201){Array(201){false} } }
+private val res = ArrayList<Int>()
 
-var maxA = 0
-var maxB = 0
-var maxC = 0
+private var maxA = 0
+private var maxB = 0
+private var maxC = 0
 
 fun main() = with(System.`in`.bufferedReader()) {
     val (a, b, c) = readLine().split(" ").map { it.toInt() }
