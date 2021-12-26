@@ -1,6 +1,6 @@
 fun main() = with(System.`in`.bufferedReader()) {
     val num = readLine().toInt()
-    val dp = MutableList(num + 1) { it }
+    val dp = IntArray(num + 1) { it }
 
     for (i in 3 .. num) {
         dp[i] = dp[i - 1] + dp[i - 2]
