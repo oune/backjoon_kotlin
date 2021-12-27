@@ -4,9 +4,9 @@ fun main() = with(System.`in`.bufferedReader()) {
     val num = readLine().toInt()
 
     val dp = IntArray(num + 1) { 0 }
-    if (num > 0)
+    if (dp.size > 1)
         dp[1] = 1
-    if (num > 1)
+    if (dp.size > 2)
         dp[2] = 3
 
     for (i in 3 .. num)
