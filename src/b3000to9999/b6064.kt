@@ -6,20 +6,17 @@ fun main() = with(System.`in`.bufferedReader()) {
     repeat(testCase) {
         val (m, n, x, y) = readLine().split(" ").map { it.toInt() }
 
-        var count = x
-        var newY = x
-
-        for (i in 0 until n) {
-            val newX = if (newY % n == 0)
-                n
-            else
-                newY % n
-
-            if (newX == y)
+        var res = -1
+        var cnt = x - 1
+        while (cnt < n * m) {
+            if (cnt % n == y - 1) {
+                res = cnt + 1
                 break
+            }
 
-            newY = newX + m
-            count += m
+            cnt += m
         }
+
+        println(res)
     }
 }
