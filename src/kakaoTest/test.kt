@@ -1,4 +1,4 @@
-package test
+package test.kakaoTest
 
 fun main() {
     val check = { a: Int, b: Int ->

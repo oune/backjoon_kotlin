@@ -1,7 +1,6 @@
-package test
+package test.kakaoTest
 
 import kotlin.math.ceil
-import kotlin.math.floor
 
 fun main() {
     val cal = { fees:IntArray, time:Int ->

@@ -1,4 +1,4 @@
-package test
+package test.kakaoTest
 //
 //fun b1000.b3000to9999.b10000.main() {
 //    val set = Set()

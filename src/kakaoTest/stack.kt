@@ -1,4 +1,4 @@
-package test
+package test.kakaoTest
 
 class Stack {
     private var size = 10
