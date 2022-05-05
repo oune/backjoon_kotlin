@@ -21,11 +21,15 @@ fun main() = with(System.`in`.bufferedReader()) {
             val char = input[idx]
 
             if (char == ':') {
-                if (protocol == null) {
+                if (protocol == null) { // 프로토콜이 빈경우
                     protocol = sb.toString()
                     sb.clear()
                     idx += 2
-                } else {
+                } else if (hasPath) { // 이미 패스가 있는 경우
+                    path = sb.toString()
+                    sb.clear()
+                    hasPath = false
+                } else { // 일반적으로 포트가 온 경우
                     host = sb.toString()
                     sb.clear()
                     hasPort = true
