@@ -4,12 +4,12 @@ import java.io.BufferedWriter
 import java.io.OutputStreamWriter
 
 fun main() = with(System.`in`.bufferedReader()) {
-    val bw = BufferedWriter(OutputStreamWriter(System.out))
+    val bw = System.out.bufferedWriter()
 
     var line = 1
     while(true) {
         val input = readLine()
-        val stack = mutableListOf<Int>()
+        var stack = 0
         var cnt = 0
 
         if (input[0] == '-')
@@ -17,18 +17,18 @@ fun main() = with(System.`in`.bufferedReader()) {
 
         input.forEach {
             if (it == '{') {
-                stack.add(0)
+                stack++
             }
             if (it == '}') {
-                if (stack.isEmpty()) {
-                    stack.add(0)
+                if (stack == 0) {
+                    stack++
                     cnt++
                 } else {
-                    stack.removeLast()
+                    stack--
                 }
             }
         }
-        cnt += stack.size / 2
+        cnt += stack / 2
 
         bw.appendLine("$line. $cnt")
 
