@@ -4,10 +4,10 @@ fun main() = with(System.`in`.bufferedReader()) {
     val tryCnt = readLine().toInt()
     val sout = System.out.bufferedWriter()
 
-    Array(tryCnt) {
+    IntArray(tryCnt) {
         readLine().toInt()
     }.sorted().forEach {
-        sout.appendLine("$it")
+        sout.appendLine(it.toString())
     }
     sout.flush()
     sout.close()

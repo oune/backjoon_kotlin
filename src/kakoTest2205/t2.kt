@@ -23,10 +23,11 @@ fun solution(queue1: IntArray, queue2: IntArray): Int {
 
     var answer: Int = -1
 
-    var cnt = 0
+    val max = left.size + right.size + 1
     var leftZero = false
     var rightZero = false
-    while (!(leftZero && rightZero)) {
+    var cnt = 0
+    while (cnt < max && !(leftZero && rightZero)) {
         if (leftTotal == rightTotal) {
             answer = cnt
             break

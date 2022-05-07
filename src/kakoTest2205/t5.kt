@@ -2,31 +2,35 @@ package test.kakoTest2205
 
 
 fun main() {
-    println(arrayOf(intArrayOf(1, 2, 3), intArrayOf(4, 5, 6), intArrayOf(7, 8, 9)).contentDeepToString())
-    println(
-        solution(
-            arrayOf(intArrayOf(1, 2, 3), intArrayOf(4, 5, 6), intArrayOf(7, 8, 9)),
-            arrayOf("Rotate")
-        ).contentDeepToString()
-    )
-    println(
-        solution(
-            arrayOf(intArrayOf(1, 2, 3), intArrayOf(4, 5, 6), intArrayOf(7, 8, 9)),
-            arrayOf("Rotate", "Rotate")
-        ).contentDeepToString()
-    )
-    println(
-        solution(
-            arrayOf(intArrayOf(1, 2, 3), intArrayOf(4, 5, 6), intArrayOf(7, 8, 9)),
-            arrayOf("Rotate", "Rotate", "Rotate")
-        ).contentDeepToString()
-    )
-    println(
-        solution(
-            arrayOf(intArrayOf(1, 2, 3), intArrayOf(4, 5, 6), intArrayOf(7, 8, 9)),
-            arrayOf("Rotate", "Rotate", "Rotate", "Rotate" )
-        ).contentDeepToString()
-    )
+//    println(arrayOf(intArrayOf(1, 2, 3), intArrayOf(4, 5, 6), intArrayOf(7, 8, 9)).contentDeepToString())
+//    println(
+//        solution(
+//            arrayOf(intArrayOf(1, 2, 3), intArrayOf(4, 5, 6), intArrayOf(7, 8, 9)),
+//            arrayOf("Rotate")
+//        ).contentDeepToString()
+//    )
+//    println(
+//        solution(
+//            arrayOf(intArrayOf(1, 2, 3), intArrayOf(4, 5, 6), intArrayOf(7, 8, 9)),
+//            arrayOf("Rotate", "Rotate")
+//        ).contentDeepToString()
+//    )
+//    println(
+//        solution(
+//            arrayOf(intArrayOf(1, 2, 3), intArrayOf(4, 5, 6), intArrayOf(7, 8, 9)),
+//            arrayOf("Rotate", "Rotate", "Rotate")
+//        ).contentDeepToString()
+//    )
+//    println(
+//        solution(
+//            arrayOf(intArrayOf(1, 2, 3), intArrayOf(4, 5, 6), intArrayOf(7, 8, 9)),
+//            arrayOf("Rotate", "Rotate", "Rotate", "Rotate" )
+//        ).contentDeepToString()
+//    )
+//    println("===============================")
+    var rc = arrayOf(intArrayOf(1, 2, 3, 4), intArrayOf(5, 6, 7, 8), intArrayOf(9, 10, 11, 12))
+    var operations = arrayOf("ShiftRow", "Rotate", "ShiftRow", "Rotate")
+    println(solution(rc, operations).contentDeepToString())
 }
 
 fun solution(rc: Array<IntArray>, operations: Array<String>): Array<IntArray> {
@@ -70,29 +74,21 @@ fun shift(arr: Array<Array<IntArray>>) {
 
 fun rotate(arr: Array<Array<IntArray>>) {
     val rowSize = arr.size
+    val rowLast = arr.lastIndex
     val columnSize = arr.first().size
+    val columnLast = arr.first().lastIndex
 
-    // 첫 행 조건
-    val first = arr.first()
-    for(i in 0 until columnSize - 1) {
-        val now = first[i];
-        now[1] = (now[1] + 1) % columnSize
-    }
-    // 끝 열 조건
-    for (i in 0 until rowSize - 1) {
-        val now = arr[i].last()
-        now[0] = (now[0] + 1) % rowSize
-    }
-
-    // 끝 행 조건
-    val last = arr.last()
-    for(i in 1 until columnSize) {
-        val now = last[i];
-        now[1] = (now[1] + 2) % columnSize
-    }
-    // 첫 열 조건
-    for (i in 1 until rowSize) {
-        val now = arr[i].first()
-        now[0] = (now[0] + 2) % rowSize
+    arr.forEach { row ->
+        row.forEach { idx ->
+            if (idx[0] == 0 && idx[1] != columnLast) { // 첫행
+                idx[1] = (idx[1] + 1) % columnSize
+            } else if (idx[1] == columnLast && idx[0] != rowLast) { // 끝열
+                idx[0] = (idx[0] + 1) % rowSize
+            } else if (idx[0] == rowLast && idx[1] != 0) { // 끝행
+                idx[1] = (idx[1] + columnSize -1) % columnSize
+            } else if (idx[1] == 0 && idx[0] != 0) { // 첫 열
+                idx[0] = (idx[0] + rowSize - 1) % rowSize
+            }
+        }
     }
 }
