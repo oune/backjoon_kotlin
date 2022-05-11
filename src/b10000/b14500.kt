@@ -38,24 +38,24 @@ private fun getTetrominos() :List<List<Pair<Int, Int>>>{
 
     return listOf(
         tetrominoI,
-        tetrominoI.turnRight(),
+        tetrominoI.turn90(),
         tetrominoO,
         tetrominoZ,
-        tetrominoZ.turnRight(),
+        tetrominoZ.turn90(),
         tetrominoS,
-        tetrominoS.turnRight(),
+        tetrominoS.turn90(),
         tetrominoL,
-        tetrominoL.turnRight(),
-        tetrominoL.turnRight().turnRight(),
-        tetrominoL.turnRight().turnRight().turnRight(),
+        tetrominoL.turn90(),
+        tetrominoL.turn180(),
+        tetrominoL.turn270(),
         tetrominoJ,
-        tetrominoJ.turnRight(),
-        tetrominoJ.turnRight().turnRight(),
-        tetrominoJ.turnRight().turnRight().turnRight(),
+        tetrominoJ.turn90(),
+        tetrominoJ.turn180(),
+        tetrominoJ.turn270(),
         tetrominoT,
-        tetrominoT.turnRight(),
-        tetrominoT.turnRight().turnRight(),
-        tetrominoT.turnRight().turnRight().turnRight(),
+        tetrominoT.turn90(),
+        tetrominoT.turn180(),
+        tetrominoT.turn270(),
     )
 }
 
@@ -67,6 +67,18 @@ private fun List<Pair<Int,Int>>.turnRight(): List<Pair<Int, Int>> {
     return this.map { 
         it.turnRight()
     }
+}
+
+private fun List<Pair<Int,Int>>.turn90(): List<Pair<Int, Int>> {
+    return this.turnRight()
+}
+
+private fun List<Pair<Int,Int>>.turn180(): List<Pair<Int, Int>> {
+    return this.turn90().turnRight()
+}
+
+private fun List<Pair<Int,Int>>.turn270(): List<Pair<Int, Int>> {
+    return this.turn180().turnRight()
 }
 
 private fun Pair<Int, Int>.mirror(): Pair<Int, Int> {
