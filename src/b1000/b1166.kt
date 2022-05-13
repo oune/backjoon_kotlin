@@ -5,7 +5,6 @@ fun main() = with(System.`in`.bufferedReader()) {
 
     var low = 0.0
     var high = l.coerceAtLeast(w.coerceAtLeast(h)).toDouble()
-    l.coerceAtLeast()
 
     for (i in 0..10000) {
         val mid = (low + high) / 2.0
