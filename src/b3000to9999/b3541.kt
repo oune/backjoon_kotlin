@@ -2,24 +2,22 @@ package test.b3000to9999
 
 fun main() = with(System.`in`.bufferedReader()) {
     val (n , m) = readLine().split(" ").map { it.toInt() }
-    val elevators = Array(m) {
-        val (u, d) = readLine().split(" ").map { it.toInt() }
-        Pair(u, d)
-    }
 
     var ans = Long.MAX_VALUE
-    elevators.forEach {
+    repeat(m) {
+        val (u, d) = readLine().split(" ").map { it.toInt() }
+
         var left = 0L
         var right = n.toLong()
         while (left <= right) {
             val up = (left + right) / 2
             val down = n - up
-            val floor = up * it.first - down * it.second
+            val floor = up * u - down * d
 
-            if (floor >= 0) {
+            if (floor > 0) {
                 right = up - 1
 
-                if (floor < ans) {
+                if (floor in 1 until ans) {
                     ans = floor
                 }
             } else {
