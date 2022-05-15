@@ -3,29 +3,27 @@ fun main() = with(System.`in`.bufferedReader()) {
 
     val homes = IntArray(n) { readLine().toInt() }.sorted()
 
-    var left = 1L
-    var right = 10000000000L
-    var ans = 0L
-
-    while(left <= right) {
+    var left = 1
+    var right = homes.last() - homes.first() + 1
+    while(left < right) {
         val mid = (left + right) / 2
-        var count = 0
 
-        var pre = homes[0]
-        for (home in homes) {
+        var count = 1
+
+        var pre = homes.first()
+        homes.drop(1).forEach { home ->
             if (home >= pre + mid) {
                 count++
                 pre = home
             }
         }
 
-        if (count >= c) {
-            left = mid + 1
-            ans = mid
+        if (count < c) {
+            right = mid
         } else {
-            right = mid - 1
+            left = mid + 1
         }
     }
 
-    print(ans)
+    print(left - 1)
 }
