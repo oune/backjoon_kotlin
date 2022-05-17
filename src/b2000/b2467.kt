@@ -3,7 +3,7 @@ package test.b2000
 import kotlin.math.absoluteValue
 
 fun main() = with(System.`in`.bufferedReader()) {
-    val n = readLine().toInt()
+    readLine()
     val solutions = readLine().split(" ").map { it.toInt() }
 
     var min = Int.MAX_VALUE
