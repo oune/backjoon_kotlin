@@ -1,4 +1,4 @@
-package b3000to9999//fun b1000.b3000to9999.b10000.main() = with(System.`in`.bufferedReader()) {
+package b9000//fun b1000.b3000to9999.b10000.main() = with(System.`in`.bufferedReader()) {
 //    val testCnt = readLine().toInt()
 //
 //    repeat(testCnt) {

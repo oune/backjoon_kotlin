@@ -1,8 +1,7 @@
-package b3000to9999
+package b9000
 
 import java.io.BufferedWriter
 import java.io.OutputStreamWriter
-import java.util.*
 import kotlin.collections.ArrayDeque
 
 fun main() = with(System.`in`.bufferedReader()) {

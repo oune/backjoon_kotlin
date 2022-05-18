@@ -1,4 +1,4 @@
-package b3000to9999
+package b9000
 
 fun main() = with(System.`in`.bufferedReader()) {
     val n = readLine().toInt()

@@ -1,4 +1,4 @@
-package b3000to9999
+package b7000
 
 fun main() = with(System.`in`.bufferedReader()) {
     val testCnt = readLine().toInt()
