@@ -5,25 +5,21 @@ import java.util.*
 fun main() = with(System.`in`.bufferedReader()) {
     val (n, sister) = readLine().split(" ").map { it.toInt() }
     val size = 100000 + 1
-    val visited = BooleanArray(size) { false }
+    val visitedTime = IntArray(size) { -1 }
 
     var min = Int.MAX_VALUE
     var count = 0
 
     val que = LinkedList<State>()
     que.offer(State(n, 0))
-    visited[n] = true
+    visitedTime[n] = 0
 
     while(que.isNotEmpty()) {
         val now = que.poll()
 
         if (now.subin == sister) {
-            if (now.time < min) {
-                min = now.time
-                count = 1
-            } else if (now.time == min) {
-                count++
-            }
+            min = now.time
+            count++
             continue
         }
 
@@ -43,10 +39,10 @@ fun main() = with(System.`in`.bufferedReader()) {
         ).forEach {
             val moved = it(now)
 
-            if (moved.subin in visited.indices) {
-                if (!visited[moved.subin]) {
+            if (moved.subin in visitedTime.indices) {
+                if (visitedTime[moved.subin] == -1 || visitedTime[moved.subin] == moved.time) {
                     que.offer(moved)
-                    visited[moved.subin] = moved.subin != sister
+                    visitedTime[moved.subin] = moved.time
                 }
             }
         }
