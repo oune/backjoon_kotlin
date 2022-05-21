@@ -5,4 +5,7 @@ fun main() = with(System.`in`.bufferedReader()) {
     val bridges = Array(m) {
         readLine().split(" ").map{ it.toInt() }
     }
+    val (start, end) = readLine().split(" ").map { it.toInt() }
+
+
 }
