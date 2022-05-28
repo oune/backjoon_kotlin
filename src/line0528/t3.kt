@@ -22,13 +22,14 @@ fun solution(fuel: Int, powers: IntArray, distances: IntArray): Int {
         val newFuel = rocket.fuel + 1
         val power = powers[rocket.id]
         var distance = 0.0
-        var time = 1
-        while (distance <= distances[rocket.id]) {
-            distance = if (time <= newFuel) {
+        var time = 0
+        while (distance < distances[rocket.id]) {
+            val speed = power * newFuel
+            distance = if (time < newFuel) {
                 time * power / 2.0
             } else {
                 val uniformMotionTime = time - newFuel
-                newFuel * power / 2.0 + power * newFuel * uniformMotionTime
+                newFuel * power / 2.0 + speed * uniformMotionTime
             }
 
             time++
@@ -36,7 +37,24 @@ fun solution(fuel: Int, powers: IntArray, distances: IntArray): Int {
         que.offer(Rocket(rocket.id, newFuel, time))
     }
 
-    return que.poll().time
+    val rocket = que.poll()
+    val newFuel = rocket.fuel + 1
+    val power = powers[rocket.id]
+    var distance = 0.0
+    var time = 0
+    while (distance < distances[rocket.id]) {
+        val speed = power * newFuel
+        distance = if (time < newFuel) {
+            time * power / 2.0
+        } else {
+            val uniformMotionTime = time - newFuel
+            newFuel * power / 2.0 + speed * uniformMotionTime
+        }
+
+        time++
+    }
+
+    return time
 }
 
 private data class Rocket(val id:Int, val fuel: Int, val time:Int)
