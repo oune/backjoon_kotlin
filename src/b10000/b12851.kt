@@ -10,8 +10,8 @@ fun main() = with(System.`in`.bufferedReader()) {
     var min = Int.MAX_VALUE
     var count = 0
 
-    val que = LinkedList<State>()
-    que.offer(State(n, 0))
+    val que = LinkedList<PositionState>()
+    que.offer(PositionState(n, 0))
     visitedTime[n] = 0
 
     while(que.isNotEmpty()) {
@@ -24,17 +24,17 @@ fun main() = with(System.`in`.bufferedReader()) {
         }
 
         listOf(
-            {state:State ->
+            {state: PositionState ->
                 val (subin, time) = state
-                State(subin + 1, time + 1)
+                PositionState(subin + 1, time + 1)
             },
-            {state:State ->
+            {state: PositionState ->
                 val (subin, time) = state
-                State(subin - 1, time + 1)
+                PositionState(subin - 1, time + 1)
             },
-            {state:State ->
+            {state: PositionState ->
                 val (subin, time) = state
-                State(subin * 2, time + 1)
+                PositionState(subin * 2, time + 1)
             },
         ).forEach {
             val moved = it(now)
