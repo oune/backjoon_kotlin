@@ -13,15 +13,16 @@ fun main() = with(System.`in`.bufferedReader()) {
 
     var baby = Shark(2, 0, 0)
     space.forEachIndexed {
-        idx, list ->
-            list.forEachIndexed {
+            idx, list ->
+        list.forEachIndexed {
                 listIdx, num ->
-                if (num == 9)
-                    baby = Shark(2, listIdx, idx)
-                else if (num > 0) {
-                    fishes.offer(Fish(num, listIdx, idx))
-                }
+            if (num == 9) {
+                baby = Shark(2, listIdx, idx)
+                space[idx][listIdx] = 0
+            } else if (num > 0) {
+                fishes.offer(Fish(num, listIdx, idx))
             }
+        }
     }
 
     var time = 0
@@ -39,7 +40,11 @@ fun main() = with(System.`in`.bufferedReader()) {
             val start = Coordinate(baby.x, baby.y)
             val destination = Coordinate(x, y)
             Pair(it, getDistance(start, destination, baby, space))
-        }.filter{ it.second.time != -1 }.sortedBy { it.second.time }
+        }.filter{ it.second.time != -1 }.sortedWith(
+            compareBy<Pair<Fish, PositionState>>
+            { it.second.time
+            }.thenBy { it.second.y
+            }.thenBy { it.second.x })
 
         if (res.isEmpty())
             break
