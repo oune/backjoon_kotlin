@@ -40,11 +40,7 @@ fun main() = with(System.`in`.bufferedReader()) {
             val start = Coordinate(baby.x, baby.y)
             val destination = Coordinate(x, y)
             Pair(it, getDistance(start, destination, baby, space))
-        }.filter{ it.second.time != -1 }.sortedWith(
-            compareBy<Pair<Fish, PositionState>>
-            { it.second.time
-            }.thenBy { it.second.y
-            }.thenBy { it.second.x })
+        }.filter{ it.second.time != -1 }.sortedBy { it.second.time }
 
         if (res.isEmpty())
             break
@@ -65,16 +61,16 @@ fun getDistance(from:Coordinate, to:Coordinate, baby:Shark, space:Array<IntArray
     val visited = Array(space.size) { BooleanArray(space[it].size) { false } }
     val que = LinkedList<PositionState>()
     que.offer(PositionState(from.x, from.y, 0))
+    visited[from.y][from.x] = true
 
     while(que.isNotEmpty()) {
         val now = que.poll()
-        visited[now.y][now.x] = true
 
         listOf(
-            { x:Int, y:Int -> Pair(x + 1, y) },
+            { x:Int, y:Int -> Pair(x, y - 1) },
             { x:Int, y:Int -> Pair(x - 1, y) },
+            { x:Int, y:Int -> Pair(x + 1, y) },
             { x:Int, y:Int -> Pair(x, y + 1) },
-            { x:Int, y:Int -> Pair(x, y - 1) }
         ).forEach {
             val moved = it(now.x, now.y)
 
@@ -83,8 +79,10 @@ fun getDistance(from:Coordinate, to:Coordinate, baby:Shark, space:Array<IntArray
                     if (space[moved.second][moved.first] <= baby.size)
                         if (moved.first == to.x && moved.second == to.y) {
                             return PositionState(to.x, to.y, now.time + 1)
-                        } else
+                        } else {
                             que.offer(PositionState(moved.first, moved.second, now.time + 1))
+                            visited[now.y][now.x] = true
+                        }
             }
         }
     }
