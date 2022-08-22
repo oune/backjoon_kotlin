@@ -5,6 +5,7 @@ private data class Node(val bracket:Char, val num:Int, val isNumber:Boolean)
 fun main() = with(System.`in`.bufferedReader()) {
     println(check(readLine()))
 }
+
 private fun check(input:String) :Int{
     val stack = mutableListOf<Node>()
 
