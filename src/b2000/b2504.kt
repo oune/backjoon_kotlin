@@ -4,54 +4,46 @@ fun main() = with(System.`in`.bufferedReader()) {
     fun check(input:String) :Int{
         data class Node(val bracket:Char, val num:Int, val isNumber:Boolean)
         val stack = mutableListOf<Node>()
+
+        fun sum(stack:MutableList<Node>, target:Char, multiple:Int) :Int {
+            var sum = 0
+            do {
+                if (stack.isEmpty())
+                    return 0
+
+                val now = stack.removeLast()
+
+                if (now.isNumber) {
+                    sum += now.num
+                } else if (now.bracket == target){
+                    if(sum == 0)
+                        sum = 1
+                    sum *= multiple
+                } else {
+                    return 0
+                }
+            } while(now.isNumber)
+            return sum
+        }
+
         input.forEach {
-            when(it) {
+            val node = when(it) {
                 '(' -> {
-                    stack.add(Node('(', 2, false))
+                    Node('(', 2, false)
                 } ')' -> {
-                    var sum = 0
-                    do {
-                        if (stack.isEmpty())
-                            return 0
-
-                        val now = stack.removeLast()
-
-                        if (now.isNumber) {
-                            sum += now.num
-                        } else if (now.bracket == '('){
-                            if(sum == 0)
-                                sum = 1
-                            sum *= 2
-                        } else {
-                            return 0
-                        }
-                    } while(now.isNumber)
-
-                    stack.add(Node('n', sum, true))
+                    Node('n', sum(stack, '(', 2), true)
                 } ']' -> {
-                    var sum = 0
-                    do {
-                        if (stack.isEmpty())
-                            return 0
-
-                        val now = stack.removeLast()
-
-                        if (now.isNumber) {
-                            sum += now.num
-                        } else if (now.bracket == '['){
-                            if(sum == 0)
-                                sum = 1
-                            sum *= 3
-                        } else {
-                            return 0
-                        }
-                    } while(now.isNumber)
-
-                    stack.add(Node('n', sum, true))
+                    Node('n', sum(stack, '[', 3), true)
                 } '[' -> {
-                    stack.add(Node('[', 3, false))
+                    Node('[', 3, false)
+                } else -> {
+                    Node('x', 0, false)
                 }
             }
+            if (node.num == 0)
+                return 0
+
+            stack.add(node)
         }
 
         var sum = 0
