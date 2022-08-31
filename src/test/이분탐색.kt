@@ -7,7 +7,7 @@ fun main() = with(System.`in`.bufferedReader()) {
     val target = 99
     var low = 0
     var high = arr.lastIndex
-    var ans = 0
+    var ans = -1
 
     while(low <= high) {
         val mid = (low + high) / 2
@@ -16,7 +16,7 @@ fun main() = with(System.`in`.bufferedReader()) {
         } else if (arr[mid] < target) {
             low = mid + 1
         } else {
-            ans = mid
+            ans = low
             break
         }
     }
