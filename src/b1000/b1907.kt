@@ -25,13 +25,32 @@ fun main() = with(System.`in`.bufferedReader()) {
         return formula
     }
 
+    fun Formula.plus(formula: Formula):Formula {
+        return Formula(c + formula.c, h + formula.h, o + formula.o)
+    }
+
+    fun Formula.multifly(num: Int):Formula {
+        return Formula(c * num, h * num, o * num)
+    }
+
     val (a, b, c) = readLine().split('+', '=').map { formula(it) }
+    var ans = Formula(-1, -1, -1)
 
-    for (i in 1..10) {
-        for (j in 1..10) {
-            for (k in 1..10) {
+    run {
+        for (i in 1..10) {
+            for (j in 1..10) {
+                for (k in 1..10) {
+                    val left = a.multifly(i).plus(b.multifly(j))
+                    val right = c.multifly(k)
 
+                    if (left == right) {
+                        ans = Formula(i, j, k)
+                        return@run
+                    }
+                }
             }
         }
     }
+
+    println("${ans.c} ${ans.h} ${ans.o}")
 }
