@@ -1,4 +1,4 @@
-package test.b4000
+package b4000
 
 fun main() = with(System.`in`.bufferedReader()) {
     val out = System.out.bufferedWriter()
@@ -6,6 +6,7 @@ fun main() = with(System.`in`.bufferedReader()) {
     val repeatCnt = readLine().toInt()
     repeat(repeatCnt) {
         val map = HashMap<String, String>()
+        val size = HashMap<String, Int>()
 
         fun findSet(str:String): String {
             if (str != map[str]) {
@@ -17,7 +18,11 @@ fun main() = with(System.`in`.bufferedReader()) {
             return findSet(a) == findSet(b)
         }
         fun unionSet(a:String, b:String) {
-            map[findSet(a)] = findSet(b)
+            val pa = findSet(a)
+            val pb = findSet(b)
+
+            map[pa] = findSet(pb)
+            size[pb] = size[pb]!!.plus(size[pa]!!)
         }
 
         val relations = Array(readLine().toInt()) {
@@ -27,20 +32,18 @@ fun main() = with(System.`in`.bufferedReader()) {
         relations.forEach { (a, b) ->
             if (!map.containsKey(a)) {
                 map[a] = a
+                size[a] = 1
             }
             if (!map.containsKey(b)) {
                 map[b] = b
+                size[b] = 1
             }
 
             if (!isUnion(a, b)) {
                 unionSet(a, b)
             }
 
-            val count = map.count { (_, value) ->
-                value == findSet(a) || value == findSet(b) || value == a || value == b
-            }
-
-            out.appendLine("$count")
+            out.appendLine("${size[findSet(a)]}")
         }
     }
     out.flush()
