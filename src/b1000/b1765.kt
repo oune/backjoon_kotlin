@@ -4,7 +4,9 @@ fun main() = with(System.`in`.bufferedReader()) {
     val studentCount = readLine().toInt()
 
     val friends = IntArray(studentCount + 1) { it }
-    val enemies = IntArray(studentCount + 1) { it }
+    val enemies = Array(friends.size) {
+        mutableListOf<Int>()
+    }
 
     fun findSet(set:IntArray, vertex:Int):Int {
         if (vertex != set[vertex])
@@ -29,32 +31,8 @@ fun main() = with(System.`in`.bufferedReader()) {
 
         when(type) {
             "E" -> {
-                (1..studentCount).filter {
-                    it != a
-                }.filter {
-                    it != b
-                }.filter {
-                    isUnion(enemies, b, it)
-                }.filter {
-                    isNotUnion(friends, a, it)
-                }.forEach {
-                    unionSet(friends, a, it)
-                }
-
-                (1..studentCount).filter {
-                    it != a
-                }.filter {
-                    it != b
-                }.filter {
-                    isUnion(enemies, a, it)
-                }.filter {
-                    isNotUnion(friends, b, it)
-                }.forEach {
-                    unionSet(friends, b, it)
-                }
-
-                if (isNotUnion(enemies, a, b))
-                    unionSet(enemies, a, b)
+                enemies[a].add(b)
+                enemies[b].add(a)
             }
             "F" -> {
                 if (isNotUnion(friends, a, b))
@@ -63,10 +41,15 @@ fun main() = with(System.`in`.bufferedReader()) {
         }
     }
 
-    val set = (1..friends.lastIndex).map { findSet(friends, it) }.toSet()
-    val count = set.size
-    println(enemies.contentToString())
-    println(friends.contentToString())
-    println(set)
+    enemies.forEachIndexed { student, enemyEnemy ->
+        enemyEnemy.forEach { enemyList ->
+            enemies[enemyList].forEach { enemy ->
+                if (isNotUnion(friends, student, enemy))
+                    unionSet(friends, student, enemy)
+            }
+        }
+    }
+
+    val count = (1..studentCount).map { findSet(friends, it) }.toSet().size
     println(count)
 }
