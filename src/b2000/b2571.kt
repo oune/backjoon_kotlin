@@ -30,35 +30,34 @@ fun main() = with(System.`in`.bufferedReader()) {
         }
     }
 
-    println(arr.contentDeepToString())
-
     val sumArr = arr.map { line ->
         var pre = 0
         line.map {
-            val num = pre
-            pre = it
-            if (it == 0) 0 else it + num
+            val ans = if (it == 0) 0 else it + pre
+            pre = ans
+            ans
         }
     }
-
-    println(sumArr)
 
     var max = 0
     for (i in arr.indices) {
         for (j in arr[i].indices) {
-            if (sumArr[i][j] == 0)
+            if (arr[i][j] == 0)
                 continue
 
-            loop@for (endJ in j..arr[i].lastIndex) {
-                var sum = 0
-                for (endI in i..arr.lastIndex) {
-                    if (sumArr[endI][endJ] == 0)
-                        break@loop
-
-                    sum += sumArr[endI][endJ]
-
-                    if (sum > max)
-                        max = sum
+            var lastIdx = arr[i].lastIndex
+            for (newI in i..arr.lastIndex) {
+                for (newJ in j..lastIdx) {
+                    if (arr[newI][newJ] == 0) {
+                        lastIdx = newJ - 1
+                        break
+                    }
+                    // size check
+                    val size = arr.slice(i..newI).sumOf {
+                        it.slice(j..newJ).sum()
+                    }
+                    if (size > max)
+                        max = size
                 }
             }
         }
