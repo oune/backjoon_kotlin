@@ -1,4 +1,4 @@
-package test.b2000
+package b2000
 
 fun main() = with(System.`in`.bufferedReader()) {
     val totalCnt = readLine().toInt()
