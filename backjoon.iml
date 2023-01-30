@@ -7,6 +7,20 @@
       <excludeFolder url="file://$MODULE_DIR$/src/exam/kakaoTest" />
       <excludeFolder url="file://$MODULE_DIR$/src/exam/naver220619" />
       <excludeFolder url="file://$MODULE_DIR$/src/exam/toss" />
+      <excludeFolder url="file://$MODULE_DIR$/src/b1000" />
+      <excludeFolder url="file://$MODULE_DIR$/src/b2000" />
+      <excludeFolder url="file://$MODULE_DIR$/src/b3000" />
+      <excludeFolder url="file://$MODULE_DIR$/src/b4000" />
+      <excludeFolder url="file://$MODULE_DIR$/src/b5000" />
+      <excludeFolder url="file://$MODULE_DIR$/src/b6000" />
+      <excludeFolder url="file://$MODULE_DIR$/src/b7000" />
+      <excludeFolder url="file://$MODULE_DIR$/src/b8000" />
+      <excludeFolder url="file://$MODULE_DIR$/src/b9000" />
+      <excludeFolder url="file://$MODULE_DIR$/src/b10000" />
+      <excludeFolder url="file://$MODULE_DIR$/src/b20000" />
+      <excludeFolder url="file://$MODULE_DIR$/src/exam" />
+      <excludeFolder url="file://$MODULE_DIR$/src/example" />
+      <excludeFolder url="file://$MODULE_DIR$/src/test" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
