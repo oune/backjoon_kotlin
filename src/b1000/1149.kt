@@ -1,4 +1,5 @@
-package b1000fun main() = with(System.`in`.bufferedReader()) {
+package b1000
+fun main() = with(System.`in`.bufferedReader()) {
     val size = readLine().toInt()
     val list = List(size) {
         readLine().split(" ").map { it.toInt() }.toIntArray()

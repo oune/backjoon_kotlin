@@ -1,4 +1,5 @@
-package b10000fun main() = with(System.`in`.bufferedReader()) {
+package b10000
+fun main() = with(System.`in`.bufferedReader()) {
     val (n, k) = readLine().split(" ").map { it.toInt() }
     val props = Array(n) {
         readLine().split(" ").map { it.toInt() }

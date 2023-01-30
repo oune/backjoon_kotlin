@@ -1,4 +1,5 @@
-package b9000import java.io.BufferedReader
+package b9000
+import java.io.BufferedReader
 import java.io.InputStreamReader
 
 private val n = BufferedReader(InputStreamReader(System.`in`)).readLine().toInt()

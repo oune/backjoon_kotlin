@@ -1,4 +1,5 @@
-package b10000import java.util.LinkedList
+package b10000
+import java.util.LinkedList
 import java.util.PriorityQueue
 
 fun main() = with(System.`in`.bufferedReader()) {

@@ -1,4 +1,5 @@
-package b2000fun main() = with(System.`in`.bufferedReader()) {
+package b2000
+fun main() = with(System.`in`.bufferedReader()) {
     val size = readLine().toInt()
     val map =  Array(size) {
         readLine().split(" ").map { it.toInt() }

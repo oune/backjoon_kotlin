@@ -1,4 +1,5 @@
-package b10000fun main() = with(System.`in`.bufferedReader()) {
+package b10000
+fun main() = with(System.`in`.bufferedReader()) {
     val (_, m) = readLine().split(" ").map { it.toInt() }
     val numbs = readLine().split(" ").map { it.toInt() }.sorted()
 

@@ -1,4 +1,5 @@
-package b9000import kotlin.math.*
+package b9000
+import kotlin.math.*
 var answer=0
 
 fun isPossible(row : Int,board : IntArray) : Boolean{

@@ -1,4 +1,5 @@
-package b9000fun main() = with(System.`in`.bufferedReader()) {
+package b9000
+fun main() = with(System.`in`.bufferedReader()) {
 
     repeat(readLine().toInt()) {
         val size = readLine().toInt()

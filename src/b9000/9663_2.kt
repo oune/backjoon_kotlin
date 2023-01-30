@@ -1,4 +1,5 @@
-package b9000fun main() = with(System.`in`.bufferedReader()) {
+package b9000
+fun main() = with(System.`in`.bufferedReader()) {
     val size = readLine().toInt()
 
     val visited = BooleanArray(size) { false }

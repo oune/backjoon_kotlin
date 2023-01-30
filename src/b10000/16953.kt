@@ -1,4 +1,5 @@
-package b10000import java.util.*
+package b10000
+import java.util.*
 
 fun main() = with(System.`in`.bufferedReader()) {
     val (a, b) = readLine().split(" ").map { it.toInt() }

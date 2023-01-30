@@ -1,4 +1,5 @@
-package b5000import java.util.ArrayList
+package b5000
+import java.util.ArrayList
 import java.util.PriorityQueue
 
 fun main() = with(System.`in`.bufferedReader()) {

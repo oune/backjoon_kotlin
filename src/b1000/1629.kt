@@ -1,4 +1,5 @@
-package b1000fun main() = with(System.`in`.bufferedReader()) {
+package b1000
+fun main() = with(System.`in`.bufferedReader()) {
     val (a, b, c) = readLine().split(" ").map { it.toLong() }
 
     fun pow(num:Long, n:Long):Long {

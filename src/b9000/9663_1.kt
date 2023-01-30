@@ -1,4 +1,5 @@
-package b9000import kotlin.math.abs
+package b9000
+import kotlin.math.abs
 
 fun main() = with(System.`in`.bufferedReader()) {
     val size = readLine().toInt()

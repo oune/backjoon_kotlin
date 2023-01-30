@@ -1,4 +1,5 @@
-package b1000import java.util.*
+package b1000
+import java.util.*
 
 fun main() = with(System.`in`.bufferedReader()) {
     val nodeCount = readLine().toInt()
