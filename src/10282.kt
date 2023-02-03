@@ -29,7 +29,8 @@ fun main() = with(System.`in`.bufferedReader()) {
                 }
             }
 
-            appendLine("${ans.filter { it != Int.MAX_VALUE }.size } ${ ans.filter { it != Int.MAX_VALUE }.max() }")
+            val filtered = ans.filter { it != Int.MAX_VALUE }
+            appendLine("${ filtered.size } ${ filtered.max() }")
         }
         flush()
     }
