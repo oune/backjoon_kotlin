@@ -18,16 +18,8 @@ fun main() = with(System.`in`.bufferedReader()) {
             que.offer(Point(hacked, 0))
             ans[hacked] = 0
 
-            var visited = BooleanArray(ans.size) { false }
-            var last = hacked
             while(que.isNotEmpty()) {
                 val now = que.poll()
-
-                if (visited[now.pos])
-                    continue
-
-                last = now.pos
-                visited[now.pos] = true
 
                 map[now.pos].filter { moved ->
                     ans[moved.pos] > ans[now.pos] + moved.cost
@@ -37,7 +29,7 @@ fun main() = with(System.`in`.bufferedReader()) {
                 }
             }
 
-            appendLine("${visited.count{it} } ${ans[last]}")
+            appendLine("${ans.filter { it != Int.MAX_VALUE }.size } ${ ans.filter { it != Int.MAX_VALUE }.max() }")
         }
         flush()
     }
