@@ -18,36 +18,38 @@ fun main() = with(System.`in`.bufferedReader()) {
 
     val (start, end) = readLine().split(" ").map { it.toInt() }
 
-    val max = 100001
-    val ans = Array(1001) {
-        Bus(it, 100001)
-    }
+    val max = Int.MAX_VALUE
+    val ans = IntArray(citiesCnt + 1) { max }
+    val from = IntArray(citiesCnt + 1) { 0 }
     val que = PriorityQueue<Bus>( compareBy { it.cost } )
 
-    ans[start] = Bus(start, 0)
+    ans[start] = 0
     que.offer(Bus(start, 0))
 
     while (que.isNotEmpty()) {
         val now = que.poll()
 
-        map[now.pos].filter { moved ->
-            ans[moved.pos].cost > ans[now.pos].cost + moved.cost
-        }.forEach { moved ->
-            ans[moved.pos] = Bus(now.pos, ans[now.pos].cost + moved.cost)
-            que.offer(Bus(moved.pos, ans[now.pos].cost + moved.cost))
+        if(ans[now.pos] < now.cost)
+            continue;
+
+        for (moved in map[now.pos]) {
+            if (ans[moved.pos] > ans[now.pos] + moved.cost) {
+                ans[moved.pos] = ans[now.pos] + moved.cost
+                que.offer(Bus(moved.pos, ans[moved.pos]))
+                from[moved.pos] = now.pos
+            }
         }
     }
 
     var res = listOf(end)
     var now = end
     while (now != start) {
-        val next = ans[now].pos
+        val next = from[now]
         res = listOf(next) + res
         now = next
     }
 
-    println(ans.filter { it.cost != 100001 }.maxOf { it.cost })
+    println(ans[end])
     println(res.size)
     println(res.joinToString(" "))
-
 }
