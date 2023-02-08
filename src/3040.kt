@@ -1,27 +1,42 @@
 fun main() = with(System.`in`.bufferedReader()) {
-    val numbs = List(9) {
+    val arr = Array(9) {
         readLine().toInt()
     }
-    var ans = intArrayOf()
-    val selected = IntArray(7) { 0 }
-    fun comb(count:Int, depth:Int) {
-        if (depth !in numbs.indices)
+
+    val sum = arr.sum()
+    val selected = BooleanArray(arr.size) { false }
+    var isContinue = true
+
+    fun comb(depth:Int, count:Int, end:Int) {
+        if (!isContinue)
             return
 
-        if (count == 7) {
-            println(selected.joinToString(" "))
-            if (selected.sum() == 100) {
-                ans = selected.clone()
+        if (depth == arr.size) {
+            if (count == end) {
+                var heightSum = 0
+
+                arr.forEachIndexed { idx ,height ->
+                    if (selected[idx])
+                        heightSum += height
+                }
+
+                if (sum - heightSum == 100) {
+                    arr.forEachIndexed { idx ,height ->
+                        if (!selected[idx])
+                            println(height)
+                    }
+
+                    isContinue = false
+                }
             }
             return
         }
 
-        for (i in depth .. numbs.lastIndex) {
-            selected[count] = numbs[i]
-            comb(count + 1, i + 1)
+        listOf(false, true).forEach {
+            selected[depth] = it
+            comb(depth + 1, count + if(it) 1 else 0, end)
         }
     }
-    comb(0, 0)
 
-    print(ans.joinToString("\n"))
+    comb(0, 0, 2)
 }
