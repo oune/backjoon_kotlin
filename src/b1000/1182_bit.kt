@@ -1,7 +1,8 @@
 fun main() = with(System.`in`.bufferedReader()) {
+    val (_, s) = readLine().split(" ").map { it.toInt() }
     val numbs = readLine().split(" ").map { it.toInt() }
 
-    fun Int.isVisited(idx: Int):Boolean {
+    fun Int.isVisited(idx:Int):Boolean {
         return this and (1 shl idx) != 0
     }
 
@@ -12,10 +13,13 @@ fun main() = with(System.`in`.bufferedReader()) {
             val list = this.filterIndexed { index, _ -> masking.isVisited(index) }
             res.add(list)
         }
-
         return res
     }
 
-    val list = numbs.subset()
-    println(list)
+    val subsets = numbs.subset().filter { it.isNotEmpty() }
+    val ans = subsets.count {
+        it.sum() == s
+    }
+
+    println(ans)
 }
