@@ -25,9 +25,9 @@ fun main() = with(System.`in`.bufferedReader()) {
                 switches.toggle(num)
 
                 var idx = 1
-                while (num + idx in switches.indices && num - idx in switches.indices) {
-                    val left = num - idx
-                    val right = num + idx
+                var left = num - idx
+                var right = num + idx
+                while (right in switches.indices && left in switches.indices) {
                     if (switches[left] == switches[right]) {
                         switches.toggle(left)
                         switches.toggle(right)
@@ -35,6 +35,8 @@ fun main() = with(System.`in`.bufferedReader()) {
                         break
                     }
                     idx++
+                    left = num - idx
+                    right = num + idx
                 }
             }
         }
