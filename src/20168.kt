@@ -46,7 +46,7 @@ fun main() = with(System.`in`.bufferedReader()) {
     }
 
     val totalCost = ans[endNode]
-    val res = if (totalCost != Int.MAX_VALUE  && totalCost <= money) min[endNode] else -1
+    val res = if (totalCost != Int.MAX_VALUE) min[endNode] else -1
 
     println(res)
 }
