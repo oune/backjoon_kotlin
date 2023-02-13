@@ -1,52 +1,87 @@
+import java.util.StringTokenizer
 import kotlin.text.StringBuilder
 
 fun main() = with(System.`in`.bufferedReader()) {
-    val (n, jobCnt) = readLine().split(" ").map { it.toInt() }
-    val stations = readLine().split(" ").map { it.toInt() }.toMutableList()
+    val (_, jobCnt) = readLine().split(" ").map { it.toInt() }
+    val stations = readLine().split(" ").map { it.toInt() }
 
-    fun MutableList<Int>.insertBefore(target:Int, new:Int):Int {
-        val idx = this.indexOf(target)
-        val pre = if (idx - 1 in this.indices) this[idx - 1] else this.last()
-        this.add(if (idx == 0) 0 else idx, new)
+    val arraySize = 1000001
+    val preStation = IntArray(arraySize) { -1 }
+    val nextStation = IntArray(arraySize) { -1 }
 
-        return pre
+    for (i in stations.indices) {
+        val preIndex = if (i - 1 in stations.indices) i - 1 else stations.lastIndex
+        val nextIndex = if (i + 1 in stations.indices) i + 1 else 0
+
+        val pre = stations[preIndex]
+        val next = stations[nextIndex]
+
+        preStation[stations[i]] = pre
+        nextStation[stations[i]] = next
     }
 
-    fun MutableList<Int>.insertAfter(target:Int, new:Int):Int {
-        val idx = this.indexOf(target)
-        val next = if (idx + 1 in this.indices) this[idx + 1] else this.first()
-        this.add(idx + 1, new)
+    fun bn(target:Int, new:Int): Int {
+        val next = nextStation[target]
+
+        nextStation[target] = new
+        preStation[next] = new
+        nextStation[new] = next
+        preStation[new] = target
 
         return next
     }
 
-    fun MutableList<Int>.removeAfter(target:Int): Int {
-        val idx = this.indexOf(target)
-        return this.removeAt(if (idx == this.lastIndex) 0 else idx + 1)
+    fun bp(target:Int, new:Int): Int {
+        val pre = preStation[target]
+
+        preStation[target] = new
+        nextStation[pre] = new
+        preStation[new] = pre
+        nextStation[new] = target
+
+        return pre
     }
 
-    fun MutableList<Int>.removeBefore(target:Int): Int {
-        val idx = this.indexOf(target)
-        return this.removeAt(if (idx == 0) this.lastIndex else idx - 1)
+    fun cn(target:Int): Int {
+        val next = nextStation[target]
+
+        nextStation[target] = nextStation[next]
+        preStation[nextStation[next]] = target
+        nextStation[next] = -1
+        preStation[next] = -1
+
+        return next
+    }
+
+    fun cp(target:Int): Int {
+        val pre = preStation[target]
+
+        nextStation[preStation[pre]] = target
+        preStation[target] = preStation[pre]
+        nextStation[pre] = -1
+        preStation[pre] = -1
+
+        return pre
     }
 
     val sb = StringBuilder()
     repeat(jobCnt) {
-        val inputs = readLine().split(" ")
-        when(inputs[0]) {
+        val st = StringTokenizer(readLine())
+        when(st.nextToken()) {
             "BN" -> {
-                sb.appendLine(stations.insertAfter(inputs[1].toInt(), inputs[2].toInt()))
+                sb.appendLine(bn(st.nextToken().toInt(), st.nextToken().toInt()))
             }
             "BP" -> {
-                sb.appendLine(stations.insertBefore(inputs[1].toInt(), inputs[2].toInt()))
+                sb.appendLine(bp(st.nextToken().toInt(), st.nextToken().toInt()))
             }
             "CN" -> {
-                sb.appendLine(stations.removeAfter(inputs[1].toInt()))
+                sb.appendLine(cn(st.nextToken().toInt()))
             }
             "CP" -> {
-                sb.appendLine(stations.removeBefore(inputs[1].toInt()))
+                sb.appendLine(cp(st.nextToken().toInt()))
             }
         }
     }
-    print(sb)
+
+    println(sb)
 }
