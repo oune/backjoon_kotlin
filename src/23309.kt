@@ -47,8 +47,6 @@ fun main() = with(System.`in`.bufferedReader()) {
 
         nextStation[target] = nextStation[next]
         preStation[nextStation[next]] = target
-        nextStation[next] = -1
-        preStation[next] = -1
 
         return next
     }
@@ -58,8 +56,6 @@ fun main() = with(System.`in`.bufferedReader()) {
 
         nextStation[preStation[pre]] = target
         preStation[target] = preStation[pre]
-        nextStation[pre] = -1
-        preStation[pre] = -1
 
         return pre
     }
