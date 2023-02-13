@@ -14,39 +14,30 @@ fun main() = with(System.`in`.bufferedReader()) {
         map[to].add(Node(from, cost))
     }
 
+    data class State(val pos:Int, val acc:Int, val max:Int)
+
     val ans = IntArray(nodeCnt + 1) { Int.MAX_VALUE }
-    val min = IntArray(nodeCnt + 1) { Int.MAX_VALUE }
-    val max = IntArray(nodeCnt + 1) { -1 }
-    val que = LinkedList<Node>()
+    val que = LinkedList<State>()
 
     ans[startNode] = 0
-    max[startNode] = 0
-    min[startNode] = 0
-    que.offer(Node(startNode, 0))
+    que.offer(State(startNode, 0, 0))
 
     while(que.isNotEmpty()) {
         val now = que.poll()
 
-        if (ans[now.pos] < now.cost)
-            continue
-
         for (moved in map[now.pos]) {
-            val newCost = ans[now.pos] + moved.cost
+            val state = State(moved.pos, now.acc + moved.cost, moved.cost.coerceAtLeast(now.max))
 
-            if (newCost > money)
+            if (state.acc > money)
                 continue
 
-            if (ans[moved.pos] > newCost) {
-                ans[moved.pos] = newCost
-                max[moved.pos] = max[now.pos].coerceAtLeast(moved.cost)
-                min[moved.pos] = min[moved.pos].coerceAtMost(max[moved.pos])
-                que.offer(Node(moved.pos, ans[moved.pos]))
+            if (ans[moved.pos] > state.max) {
+                ans[moved.pos] = state.max
+                que.offer(state)
             }
         }
     }
 
-    val totalCost = ans[endNode]
-    val res = if (totalCost != Int.MAX_VALUE) min[endNode] else -1
-
-    println(res)
+    val res = ans[endNode]
+    println(if (res == Int.MAX_VALUE) -1 else res)
 }
