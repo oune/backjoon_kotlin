@@ -53,7 +53,7 @@ fun main() = with(System.`in`.bufferedReader()) {
         powerPlants.forEachIndexed { index, moved ->
             if (index != 0 && index != now.pos) {
                 val nowPowerPlant = powerPlants[now.pos]
-                val distance = nowPowerPlant.getDistance(moved)
+                val distance :Double = nowPowerPlant.getDistance(moved)
 
                 if (distance <= limit) {
                     val newCost = ans[now.pos] + distance
@@ -67,5 +67,5 @@ fun main() = with(System.`in`.bufferedReader()) {
         }
     }
 
-    print((if (ans.last() == Double.MAX_VALUE) - 1 else ans.last() * 1000).toInt())
+    print((if (ans.last() == Double.MAX_VALUE) - 1 else ans.last() * 1000).toLong())
 }
