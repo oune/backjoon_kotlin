@@ -1,22 +1,25 @@
-import java.util.LinkedList
 import java.util.PriorityQueue
 import kotlin.math.sqrt
 
 fun main() = with(System.`in`.bufferedReader()) {
     val (powerPlantCnt, lineCnt) = readLine().split(" ").map { it.toInt() }
     val limit = readLine().toDouble()
-    data class PowerPlant(val x:Long, val y:Long)
+    data class PowerPlant(val x:Int, val y:Int)
     data class State(val pos:Int, val cost:Double)
 
     fun PowerPlant.distance(powerPlant: PowerPlant): Double {
         val dx = this.x - powerPlant.x
         val dy = this.y - powerPlant.y
 
-        return sqrt((dx * dx + dy * dy).toDouble())
+        fun pow2(num:Int):Long {
+            return num * num
+        }
+
+        return sqrt((pow2(dx) + pow2(dy)).toDouble())
     }
 
     val powerPlants = listOf(PowerPlant(0, 0)) + List(powerPlantCnt) {
-        val (x, y) = readLine().split(" ").map { it.toLong() }
+        val (x, y) = readLine().split(" ").map { it.toInt() }
         PowerPlant(x, y)
     }
 
