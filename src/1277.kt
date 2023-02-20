@@ -1,26 +1,27 @@
 import java.util.LinkedList
+import java.util.PriorityQueue
 import kotlin.math.sqrt
 
 fun main() = with(System.`in`.bufferedReader()) {
     val (powerPlantCnt, lineCnt) = readLine().split(" ").map { it.toInt() }
     val limit = readLine().toDouble()
-
-    data class Point(val x:Int, val y:Int)
+    data class PowerPlant(val x:Long, val y:Long)
     data class State(val pos:Int, val cost:Double)
 
-    fun Point.getDistance(point: Point): Double {
-        val dx = this.x - point.x
-        val dy = this.y - point.y
-        return sqrt( (dx * dx + dy * dy).toDouble() )
+    fun PowerPlant.distance(powerPlant: PowerPlant): Double {
+        val dx = this.x - powerPlant.x
+        val dy = this.y - powerPlant.y
+
+        return sqrt((dx * dx + dy * dy).toDouble())
     }
 
-    val powerPlants = listOf(Point(-1, -1)) + List(powerPlantCnt) {
-        val (x, y) = readLine().split(" ").map { it.toInt() }
-        Point(x, y)
+    val powerPlants = listOf(PowerPlant(0, 0)) + List(powerPlantCnt) {
+        val (x, y) = readLine().split(" ").map { it.toLong() }
+        PowerPlant(x, y)
     }
 
     val map = List(powerPlants.size) {
-        LinkedList<Int>()
+        mutableListOf<Int>()
     }
 
     repeat(lineCnt) {
@@ -29,11 +30,11 @@ fun main() = with(System.`in`.bufferedReader()) {
         map[to].add(from)
     }
 
-    val que = LinkedList<State>()
-    que.offer(State(1, 0.0))
-
     val ans = DoubleArray(powerPlants.size) { Double.MAX_VALUE }
-    ans[1] = 0.0
+    ans[1] = 0.0;
+
+    val que = PriorityQueue<State>( compareBy<State> { it.cost }.thenBy { it.pos })
+    que.offer(State(1, 0.0))
 
     while(que.isNotEmpty()) {
         val now = que.poll()
@@ -41,31 +42,30 @@ fun main() = with(System.`in`.bufferedReader()) {
         if (ans[now.pos] < now.cost)
             continue
 
-        map[now.pos].forEach { moved ->
-            val newCost = ans[now.pos]
-
-            if (ans[moved] > newCost) {
-                ans[moved] = newCost
+        for (moved in map[now.pos]) {
+            if (ans[moved] > ans[now.pos]) {
+                ans[moved] = ans[now.pos]
                 que.offer(State(moved, ans[moved]))
             }
         }
 
-        powerPlants.forEachIndexed { index, moved ->
-            if (index != 0 && index != now.pos) {
-                val nowPowerPlant = powerPlants[now.pos]
-                val distance :Double = nowPowerPlant.getDistance(moved)
+        for (idx in 1 .. powerPlants.lastIndex) {
+            val to = powerPlants[idx]
+            val distance = powerPlants[now.pos].distance(to)
 
-                if (distance <= limit) {
-                    val newCost = ans[now.pos] + distance
+            if (idx == now.pos)
+                continue
 
-                    if (ans[index] > newCost) {
-                        ans[index] = newCost
-                        que.offer(State(index, ans[index]))
-                    }
+            if (distance < limit) {
+                val acc = ans[now.pos] + distance
+
+                if (ans[idx] > acc) {
+                    ans[idx] = acc
+                    que.offer(State(idx, ans[idx]))
                 }
             }
         }
     }
 
-    print((if (ans.last() == Double.MAX_VALUE) - 1 else ans.last() * 1000).toLong())
+    println((ans.last() * 1000).toLong())
 }
