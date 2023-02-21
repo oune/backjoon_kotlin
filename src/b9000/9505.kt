@@ -15,17 +15,6 @@ fun main() = with(System.`in`.bufferedReader()) {
         {point:Point -> Point(point.x, point.y - 1)},
     )
 
-    fun findStart(map: Array<List<Int>>): Point {
-        for (i in map.indices) {
-            for (j in map[i].indices) {
-                if (map[i][j] == -1) {
-                    return Point(j, i)
-                }
-            }
-        }
-        return Point(-1, -1)
-    }
-
     repeat(testcase) {
         val (k, _, height) = readLine().split(" ").map { it.toInt() }
 
@@ -34,10 +23,17 @@ fun main() = with(System.`in`.bufferedReader()) {
             val (name, time) = readLine().split(" ")
             clingon[name.first() - 'A'] = time.toInt()
         }
-        clingon['E' - 'A'] = -1
 
         val map = Array(height) {
-            readLine().map { char -> clingon[char - 'A'] }
+            readLine().toList()
+        }
+
+        var start = Point(0, 0)
+        for (i in map.indices) {
+            for (j in map[i].indices) {
+                if (map[i][j] == 'E')
+                    start = Point(j, i)
+            }
         }
 
         val ans = Array(map.size) {
@@ -45,19 +41,16 @@ fun main() = with(System.`in`.bufferedReader()) {
                 Int.MAX_VALUE
             }
         }
-
-        val start = findStart(map)
         ans[start.y][start.x] = 0
-        clingon['E' - 'A'] = 0
 
-        val que = PriorityQueue<State>( compareBy { it.cost })
+        val que = PriorityQueue<State>( compareBy { it.cost } )
         que.offer(State(start, 0))
 
         while (que.isNotEmpty()) {
             val now = que.poll()
-
             val x = now.point.x
             val y = now.point.y
+
             if (y == 0 || y == ans.lastIndex || x == 0 || x == ans[y].lastIndex) {
                 sb.appendLine(ans[y][x])
                 break
@@ -70,7 +63,7 @@ fun main() = with(System.`in`.bufferedReader()) {
                 val moved = move(now.point)
 
                 if (moved.y in ans.indices && moved.x in ans[moved.y].indices) {
-                    val newCost = ans[y][x] + map[moved.y][moved.x]
+                    val newCost = ans[y][x] + clingon[map[moved.y][moved.x] - 'A']
 
                     if (ans[moved.y][moved.x] > newCost) {
                         ans[moved.y][moved.x] = newCost
