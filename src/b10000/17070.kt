@@ -14,17 +14,12 @@ fun main() = with(System.`in`.bufferedReader()) {
     }
 
     data class State(val x:Int, val y:Int, val direction:Int)
-    val que = LinkedList<State>()
-
-    que.offer(State(1, 0, right))
 
     var count = 0
-    while(que.isNotEmpty()) {
-        val now = que.poll()
-
+    fun dfs(now:State) {
         if (now.x == map.lastIndex && now.y == map.lastIndex) {
             count++
-            continue
+            return
         }
 
         for (direction in listOf(right, down, diagonal)) {
@@ -38,7 +33,7 @@ fun main() = with(System.`in`.bufferedReader()) {
 
                     if (y in map.indices && x in map[y].indices)
                         if (map[y][x] == empty)
-                            que.offer(State(x, y, direction))
+                            dfs(State(x, y, direction))
                 }
                 down -> {
                     val x = now.x
@@ -46,7 +41,7 @@ fun main() = with(System.`in`.bufferedReader()) {
 
                     if (y in map.indices && x in map[y].indices)
                         if (map[y][x] == empty)
-                            que.offer(State(x, y, direction))
+                            dfs(State(x, y, direction))
                 }
                 diagonal -> {
                     val x = now.x + 1
@@ -60,7 +55,7 @@ fun main() = with(System.`in`.bufferedReader()) {
                         if (map[y][now.x] == wall)
                             continue
 
-                        que.offer(State(x, y, direction))
+                        dfs(State(x, y, direction))
                     }
                 }
 
@@ -68,5 +63,6 @@ fun main() = with(System.`in`.bufferedReader()) {
         }
     }
 
+    dfs(State(1, 0, right))
     println(count)
 }
