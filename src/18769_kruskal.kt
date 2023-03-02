@@ -5,19 +5,19 @@ fun main() = with(System.`in`.bufferedReader()) {
     repeat(testcaseCnt) {
         val (rowCnt, columnCnt) = readLine().split(" ").map { it.toInt() }
 
-        data class Node(val from:Pair<Int,Int>, val to:Pair<Int,Int>, val cost:Int)
+        data class Node(val from:Int, val to:Int, val cost:Int)
         val lines = mutableListOf<Node>()
 
         repeat(rowCnt) { row ->
             readLine().split(" ").map { it.toInt() }.forEachIndexed { index, cost ->
-                lines.add(Node(Pair(index, row), Pair(index + 1, row), cost))
+                lines.add(Node((index + row * columnCnt), (index + 1 + row * columnCnt), cost))
             }
 
         }
 
-        repeat(rowCnt - 1) { column ->
+        repeat(rowCnt - 1) { row ->
             readLine().split(" ").map { it.toInt() }.forEachIndexed { index, cost ->
-                lines.add(Node(Pair(index, column), Pair(index, column + 1), cost))
+                lines.add(Node((index + row * columnCnt), (index + (1 + row) * columnCnt), cost))
             }
         }
 
@@ -38,32 +38,22 @@ fun main() = with(System.`in`.bufferedReader()) {
 }
 
 class DisjointSet(width:Int, height:Int) {
-    private val parents = List(height) { i ->
-        Array(width) { j -> Pair(j, i) }
+    private val parents = IntArray(height * width) { it
+    }
+    fun findSet(num: Int): Int {
+        if (num != parents[num])
+            parents[num] = findSet(parents[num])
+
+        return parents[num]
     }
 
-    private fun getParent(pair: Pair<Int, Int>): Pair<Int, Int> {
-        return parents[pair.second][pair.first]
-    }
-
-    private fun setParent(idx: Pair<Int, Int>, value: Pair<Int, Int>) {
-        parents[idx.second][idx.first] = value
-    }
-
-    fun findSet(num: Pair<Int,Int>): Pair<Int, Int> {
-        if (num != getParent(num))
-            setParent(num, findSet(getParent(num)))
-
-        return getParent(num)
-    }
-
-    fun unionSet(a:Pair<Int, Int>, b:Pair<Int, Int>) {
+    fun unionSet(a:Int, b:Int) {
         val pa = findSet(a)
         val pb = findSet(b)
-        setParent(pa, pb)
+        parents[pa] = pb
     }
 
-    fun isUnion(a:Pair<Int, Int>, b:Pair<Int, Int>): Boolean {
+    fun isUnion(a:Int, b:Int): Boolean {
         return findSet(a) == findSet(b)
     }
 }
