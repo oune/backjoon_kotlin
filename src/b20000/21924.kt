@@ -13,10 +13,9 @@ fun main() = with(System.`in`.bufferedReader()) {
 
     data class Node(val from:Int, val to:Int, val cost:Int)
 
-    var total = 0L
+
     val edges = List(edgeCnt) {
         val (from, to, cost) = readLine().split(" ").map { it.toInt() }
-        total += cost
         Node(from, to, cost)
     }
 
@@ -32,7 +31,8 @@ fun main() = with(System.`in`.bufferedReader()) {
         sum += cost
     }
 
-    if (set.isAllConected()) {
+    if (set.isAllConnected()) {
+        val total = edges.sumOf { it.cost.toLong() }
         println(total - sum)
     } else {
         println(-1)
@@ -58,10 +58,10 @@ class DisjointSet(size: Int) {
         return findSet(a) == findSet(b)
     }
 
-    fun isAllConected(): Boolean {
-        val droped = parents.drop(1)
-        val parent = findSet(droped.first())
+    fun isAllConnected(): Boolean {
+        val dropped = parents.drop(1)
+        val parent = findSet(dropped.first())
 
-        return droped.all { findSet(it) == parent }
+        return dropped.all { findSet(it) == parent }
     }
 }

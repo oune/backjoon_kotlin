@@ -16,6 +16,6 @@
 - 최소신장트리 ```#mst lang:ko s#100..```
 
 ## 다시 풀어볼 문제
-- 
+- 12834, https://www.acmicpc.net/problem/12834
 - 
  
