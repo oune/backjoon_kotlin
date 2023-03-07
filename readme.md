@@ -14,8 +14,9 @@
 ```#bitmask lang:ko *g5.. s#100..```
 - 그리디```#greedy lang:ko s#1000..```
 - 최소신장트리 ```#mst lang:ko s#100..```
+- 위상 정렬 ```#topological_sorting lang:ko s#100..```
 
 ## 다시 풀어볼 문제
-- 12834, https://www.acmicpc.net/problem/12834
+- 1948 https://www.acmicpc.net/problem/1948
 - 
  

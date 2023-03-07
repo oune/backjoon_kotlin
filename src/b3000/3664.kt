@@ -14,6 +14,7 @@ import java.util.LinkedList
 찾아 낼 수 없는 경우 : que에 2개가 들어가는 경우
 
 1시간 이상 추정
+문제좀 똑바로 읽기, 그림 그리고, 문제와 예제를 제대로 이해하기
  */
 fun main() = with(System.`in`.bufferedReader()) {
     val sb = StringBuilder();
