@@ -9,6 +9,7 @@ import java.util.LinkedList
 특점 지점을 지나는 최단 경로가 존재.
 
 틀린이유 다익스트라 작성하는 과정에서 수정안한 부분이 있었음. 꼼꼼하지 못했던게 문제
+20분
  */
 fun main() = with(System.`in`.bufferedReader()) {
     val (v, e, p) = readLine().split(" ").map { it.toInt() }
