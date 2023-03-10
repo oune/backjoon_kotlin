@@ -20,4 +20,5 @@ bfs, dfs, 순열, 조합, 부분집합, 그리디, 분할정복, 백트랙킹, �
 - 1948 https://www.acmicpc.net/problem/1948 (3/15)
 - 1918 https://www.acmicpc.net/problem/1918 (3/16)
 - 2143 https://www.acmicpc.net/problem/2143 (3/17)
+- 2887 https://www.acmicpc.net/problem/2887 (3/17)
  
