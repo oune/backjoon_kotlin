@@ -8,7 +8,7 @@
 30, 40, 60
 
 ### 알고리즘
-bfs, dfs, 순열, 조합, 부분집합, 그리디, 분할정복, 백트랙킹, 트리, 서로소 집합, 최소신장트리
+bfs, dfs, 순열, 조합, 부분집합, 그리디, 분할정복, 백트랙킹, 트리, 서로소 집합, 최소신장트리, 누적합
 ## 공부중인 알고리즘
 - 다이스트라 태그```#dijkstra -#floyd_warshall  -#0_1_bfs lang:ko s#100..```
 - 비트 마스크```#bitmask lang:ko *g5.. s#100..```
@@ -17,6 +17,7 @@ bfs, dfs, 순열, 조합, 부분집합, 그리디, 분할정복, 백트랙킹, �
 - 위상 정렬 ```#topological_sorting lang:ko s#100..```
 
 ## 다시 풀어볼 문제
-- 1948 https://www.acmicpc.net/problem/1948
-- 1918 https://www.acmicpc.net/problem/1918
+- 1948 https://www.acmicpc.net/problem/1948 (3/15)
+- 1918 https://www.acmicpc.net/problem/1918 (3/16)
+- 2143 https://www.acmicpc.net/problem/2143 (3/17)
  
