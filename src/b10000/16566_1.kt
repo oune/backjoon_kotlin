@@ -1,3 +1,5 @@
+import java.lang.StringBuilder
+
 /*
 이분 탐색
 가지고 있는 카드들 중 상대가 낸것중 가장 작은 카드를 내기
@@ -7,12 +9,11 @@ n, m = 4 * 10^6
  */
 fun main() = with(System.`in`.bufferedReader()) {
     readLine()
-    val cards = readLine().split(" ").map { it.toInt() }.sorted()
-    val indices = IntArray(cards.size) { it }
+    val cards = readLine().split(" ").map { it.toInt() }.toIntArray()
+    cards.sort()
 
+    val indices = IntArray(cards.size) { it }
     fun findSet(idx:Int): Int {
-        if (idx !in indices.indices)
-            return findSet(0)
         if (indices[idx] != idx)
             indices[idx] = findSet(indices[idx])
         return indices[idx]
@@ -48,15 +49,15 @@ fun main() = with(System.`in`.bufferedReader()) {
         return left
     }
 
-    val res = readLine().split(" ").asSequence().map { it.toInt() }.map { target ->
+    val sb = StringBuilder()
+    for (target in readLine().split(" ").map { it.toInt() }.toIntArray()) {
         val idx = upperbound(target)
         val choice = findSet(idx)
+        val next = choice + 1
 
-        if (!isUnion(choice, choice + 1))
-            unionSet(choice, choice + 1)
-
-        cards[choice]
-    }.joinToString("\n")
-
-    println(res)
+        if (next in cards.indices && !isUnion(choice, next))
+            unionSet(choice, next)
+        sb.appendLine(cards[choice])
+    }
+    print(sb)
 }
