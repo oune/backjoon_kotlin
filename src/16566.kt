@@ -1,5 +1,3 @@
-import java.util.LinkedList
-
 /*
 이분 탐색
 가지고 있는 카드들 중 상대가 낸것중 가장 작은 카드를 내기
@@ -15,7 +13,6 @@ fun main() = with(System.`in`.bufferedReader()) {
     fun findSet(idx:Int): Int {
         if (idx !in indices.indices)
             return findSet(0)
-
         if (indices[idx] != idx)
             indices[idx] = findSet(indices[idx])
         return indices[idx]
@@ -51,16 +48,15 @@ fun main() = with(System.`in`.bufferedReader()) {
         return left
     }
 
-    val sb = StringBuilder()
-    val opponent = readLine().split(" ").map { it.toInt() }
-    for (target in opponent) {
+    val res = readLine().split(" ").asSequence().map { it.toInt() }.map { target ->
         val idx = upperbound(target)
         val choice = findSet(idx)
 
         if (!isUnion(choice, choice + 1))
             unionSet(choice, choice + 1)
 
-        sb.appendLine(cards[choice])
-    }
-    print(sb)
+        cards[choice]
+    }.joinToString("\n")
+
+    println(res)
 }
