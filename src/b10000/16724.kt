@@ -46,7 +46,8 @@ fun main() = with(System.`in`.bufferedReader()) {
             }
 
             if (moved.second in map.indices && moved.first in map[moved.second].indices) {
-                unionSet(Pair(j, i), moved)
+                if (!isUnion(Pair(j, i), moved))
+                    unionSet(Pair(j, i), moved)
             }
         }
     }
