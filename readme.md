@@ -22,4 +22,5 @@ bfs, dfs, 순열, 조합, 부분집합, 그리디, 이분탐색, 분할정복, �
 - 1918 https://www.acmicpc.net/problem/1918 (3/16)
 - 2143 https://www.acmicpc.net/problem/2143 (3/17)
 - 2887 https://www.acmicpc.net/problem/2887 (3/17)
+- 16566 https://www.acmicpc.net/problem/16566 (3/22)
  
