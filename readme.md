@@ -26,3 +26,7 @@ bfs, dfs, 순열, 조합, 부분집합, 그리디, 이분탐색, 분할정복, �
 - 16566 https://www.acmicpc.net/problem/16566 (3/22)
 - 14939 https://www.acmicpc.net/problem/14939 (3/23)
  
+## 정리할 내용
+- 코틀린 이분탐색 binarySearch 이용해서
+- timsort, dounle pivot quick sort 차이
+- 그래프 탐색에서 시간복잡도
