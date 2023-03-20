@@ -16,6 +16,7 @@ bfs, dfs, 순열, 조합, 부분집합, 그리디, 이분탐색, 분할정복, �
 - 그리디```#greedy lang:ko s#1000..```
 - 최소신장트리 ```#mst lang:ko s#100..```
 - 위상 정렬 ```#topological_sorting lang:ko s#100..```
+- 이분 탐색 ```#binary_search lang:ko s#100..```
 
 ## 다시 풀어볼 문제
 - 1948 https://www.acmicpc.net/problem/1948 (3/15)
@@ -23,4 +24,5 @@ bfs, dfs, 순열, 조합, 부분집합, 그리디, 이분탐색, 분할정복, �
 - 2143 https://www.acmicpc.net/problem/2143 (3/17)
 - 2887 https://www.acmicpc.net/problem/2887 (3/17)
 - 16566 https://www.acmicpc.net/problem/16566 (3/22)
+- 14939 https://www.acmicpc.net/problem/14939 (3/23)
  
