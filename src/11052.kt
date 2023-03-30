@@ -24,7 +24,5 @@ fun main() {
         return memo[idx]
     }
 
-    maxOf(1, 2, 3, 4, 5)
-
     println(dp(n))
 }
