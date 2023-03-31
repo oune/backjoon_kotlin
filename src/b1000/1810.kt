@@ -24,19 +24,33 @@ fun main() {
         LinkedList<Pair<Int, Double>>()
     }
 
-    for (i in map.indices) {
-        val (x, y) = stones[i]
-        for (j in stones.indices) {
-            if (i == j)
-                continue
+    val sorted = stones.sortedWith( compareBy<List<Int>> { it.first() }.thenBy { it[1] })// sort by x
+    for (i in sorted.indices) {
+        val (x, y) = sorted[i]
+        for (j in i - 1 downTo 0) {
+            val (nx, ny) = sorted[j]
 
-            val (nx, ny) = stones[j]
             val dx = abs(x - nx)
             val dy = abs(y - ny)
 
-            if (dx <= 2 && dy <= 2) { // jump possible
+            if (dx <= 2 && dy <= 2) {
                 val distance = sqrt(dx.toDouble() * dx + dy * dy)
                 map[i].add(Pair(j, distance))
+            } else if (dx > 2) {
+                break
+            }
+        }
+        for (j in i + 1 until sorted.size) {
+            val (nx, ny) = sorted[j]
+
+            val dx = abs(x - nx)
+            val dy = abs(y - ny)
+
+            if (dx <= 2 && dy <= 2) {
+                val distance = sqrt(dx.toDouble() * dx + dy * dy)
+                map[i].add(Pair(j, distance))
+            } else if (dx > 2) {
+                break
             }
         }
     }
@@ -44,7 +58,7 @@ fun main() {
     data class State(val idx: Int, val acc:Double)
 
     val que = PriorityQueue<State>( compareBy { it.acc })
-    que.add(State(0, 0.0))
+    que.add(State(0, 0.0)) // (0, 0)은 항상 0번째 index에 위치
 
     val distances = DoubleArray(stones.size) { Double.MAX_VALUE }
     distances[0] = 0.0
@@ -52,7 +66,6 @@ fun main() {
     fun dijkstra(): Int {
         while(que.isNotEmpty()) {
             val (now, acc) = que.poll()
-            val (x, y) = stones[now]
 
             if (distances[now] < acc)
                 continue
@@ -63,14 +76,19 @@ fun main() {
                 if (distances[next] > newDistance) {
                     distances[next] = newDistance
                     que.add(State(next, newDistance))
-
-                    if (stones[next][1] == f) {
-                        return newDistance.roundToInt()
-                    }
                 }
             }
         }
-        return -1
+
+        var min = Double.MAX_VALUE
+        for (i in distances.indices) {
+            val (_, y) = sorted[i]
+            if (y == f) {
+                min = min.coerceAtMost(distances[i])
+            }
+        }
+
+        return if (min == Double.MAX_VALUE) -1 else min.roundToInt()
     }
 
     println(dijkstra())
