@@ -25,6 +25,7 @@ bfs, dfs, 순열, 조합, 부분집합, 그리디, 이분탐색, 분할정복, �
 - 2887 https://www.acmicpc.net/problem/2887 (3/17)
 - 16566 https://www.acmicpc.net/problem/16566 (3/22)
 - 14939 https://www.acmicpc.net/problem/14939 (3/23)
+- 1305 https://www.acmicpc.net/problem/14939 (04/04)
  
 ## 정리할 내용
 - 코틀린 이분탐색 binarySearch 이용해서
