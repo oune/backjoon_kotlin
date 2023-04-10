@@ -15,19 +15,21 @@ fun main() {
         for (j in 0 .. 9) {
             val bit = 1 shl j
             for (masking in 0 until (1 shl 10)) {
-                var sum = 0L
+                val newMask = masking or bit
+
+                var sum = dp[i][j][newMask].toLong()
                 if (j + 1 in dp[i - 1].indices)
                     sum += dp[i - 1][j + 1][masking]
                 if (j - 1 in dp[i - 1].indices)
                     sum += dp[i - 1][j - 1][masking]
 
                 sum %= mod
-                dp[i][j][masking or bit] = sum.toInt()
+                dp[i][j][newMask] = sum.toInt()
             }
         }
     }
 
-    var sum = 0
+    var sum = 0L
     for (i in dp[n].indices) {
         sum += dp[n][i].last()
         sum %= mod
