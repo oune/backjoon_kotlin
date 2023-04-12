@@ -13,10 +13,15 @@ bfs, dfs, 순열, 조합, 부분집합, 그리디, 이분탐색, 분할정복, �
 ## 공부중인 알고리즘
 - 다이스트라 태그```#dijkstra -#floyd_warshall  -#0_1_bfs lang:ko s#100..```
 - 비트 마스크```#bitmask lang:ko *g5.. s#100..```
+- 완전 탐색
 - 그리디```#greedy lang:ko s#1000..```
+- DP
 - 최소신장트리 ```#mst lang:ko s#100..```
 - 위상 정렬 ```#topological_sorting lang:ko s#100..```
 - 이분 탐색 ```#binary_search lang:ko s#100..```
+- 플로이드 워샬
+- 문자열(라빈카프, 보이어무어, kmp)
+- LIS
 
 ## 다시 풀어볼 문제
 - 1948 https://www.acmicpc.net/problem/1948 (3/15)
