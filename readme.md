@@ -19,7 +19,7 @@ bfs, dfs, 순열, 조합, 부분집합, 그리디, 이분탐색, 분할정복, �
 - 최소신장트리 ```#mst lang:ko s#100..```
 - 위상 정렬 ```#topological_sorting lang:ko s#100..```
 - 이분 탐색 ```#binary_search lang:ko s#100..```
-- 플로이드 워샬
+- 플로이드 워샬 ```#floyd_warshall lang:ko s#100..```
 - 문자열(라빈카프, 보이어무어, kmp)
 - LIS
 
