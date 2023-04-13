@@ -4,7 +4,7 @@
 출처를 적어야 하는 문제
 
 런타임 에러 (IllegalArgument) 8%
-
+배열을 char 배열로 하니까 실패 >> String 배열로 변경으로 성공
  */
 fun main() {
     val (size, lineCnt) = readln().split(" ").map { it.toInt() }
@@ -14,7 +14,7 @@ fun main() {
         IntArray(size) { maxValue }
     }
     val table = List(size) {
-        CharArray(size) { '-' }
+        Array(size) { "-" }
     }
 
     repeat(lineCnt) {
@@ -22,8 +22,8 @@ fun main() {
         map[from - 1][to - 1] = cost
         map[to - 1][from - 1] = cost
 
-        table[from - 1][to - 1] = to.digitToChar()
-        table[to - 1][from - 1] = from.digitToChar()
+        table[from - 1][to - 1] = to.toString()
+        table[to - 1][from - 1] = from.toString()
     }
 
     for (via in map.indices) {
