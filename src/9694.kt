@@ -4,22 +4,26 @@ import java.util.*
 * */
 fun main() {
     val testcaseCnt = readln().toInt()
-    val res = List(testcaseCnt) { testcase ->
-
-        val (n, m) = readln().split(" ").filter { it != "" }.map { it.toInt() }
+    repeat(testcaseCnt) { testcase ->
+        var st = StringTokenizer(readln())
+        val n = st.nextToken().toInt()
+        val m = st.nextToken().toInt()
 
         val map = List(m) {
-            LinkedList<Pair<Int, Int>>()
+            mutableListOf<Pair<Int, Int>>()
         }
 
         repeat(n) {
-            val (from, to, cost) = readln().split(" ").filter { it != "" }.map { it.toInt() }
+            st = StringTokenizer(readln())
+            val from = st.nextToken().toInt()
+            val to = st.nextToken().toInt()
+            val cost = st.nextToken().toInt()
             map[from].add(Pair(to, cost))
             map[to].add(Pair(from, cost))
         }
 
         val costs = IntArray(m) { Int.MAX_VALUE }
-        val froms = IntArray(m) { 0 }
+        val froms = IntArray(m) { -1 }
         costs[0] = 0
 
         val que = PriorityQueue<Pair<Int, Int>>(compareBy { it.second })
@@ -53,8 +57,6 @@ fun main() {
             ans.add(-1)
         }
 
-        "Case #${testcase + 1}: ${ans.reversed().joinToString(" ")}"
+        println("Case #${testcase + 1}: ${ans.reversed().joinToString(" ")}")
     }
-
-    print(res.joinToString("\n"))
 }
