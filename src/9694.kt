@@ -5,19 +5,14 @@ import java.util.*
 fun main() {
     val testcaseCnt = readln().toInt()
     repeat(testcaseCnt) { testcase ->
-        var st = StringTokenizer(readln())
-        val n = st.nextToken().toInt()
-        val m = st.nextToken().toInt()
+        val (n, m) = readln().split(" ", "\t").filter { it != "" }.map { it.toInt() }
 
         val map = List(m) {
             mutableListOf<Pair<Int, Int>>()
         }
 
         repeat(n) {
-            st = StringTokenizer(readln())
-            val from = st.nextToken().toInt()
-            val to = st.nextToken().toInt()
-            val cost = st.nextToken().toInt()
+            val (from, to, cost) = readln().split(" ", "\t").filter { it != "" }.map { it.toInt() }
             map[from].add(Pair(to, cost))
             map[to].add(Pair(from, cost))
         }
