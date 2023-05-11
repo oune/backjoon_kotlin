@@ -1,7 +1,9 @@
 /*
 * 그리디
 * 교환 횟수만큼 범위에서 최댓값을 앞으로 가져 올수 있음.
-*
+* 남아 있는 교환횟수만큼의 범위에서 최댓값을 찾고, 그 위치까지의 교환횟수를
+* 남은 회수에서 뺌.
+* 남은 리스트가 남거나, 회수를 다쓸때 까지 반봅
 * 반례
 * ❌(1%)
 10
@@ -25,30 +27,25 @@ fun main() {
     var cnt = readln().toInt()
 
     val front = mutableListOf<Int>()
-    while (cnt > 0) {
-        if (numbs.max() == numbs.first()) {
-            val max = numbs.first()
-            front.add(max)
-            numbs.remove(max)
+    while (numbs.size > 0 && cnt > 0) {
+        var max = 0
+        var idx = -1
+
+        for (i in numbs.indices) {
+            val now = numbs[i]
+            if (now > max) {
+                max = now
+                idx = i
+            }
+
+            if (i == cnt)
+                break
         }
 
-        if (cnt >= numbs.size) {
-            val max = numbs.max()
-            val idx = numbs.indexOf(max)
-            front.add(max)
-            numbs.remove(max)
-            cnt -= idx
-        } else {
-            val limit = cnt % numbs.size
-            val max = numbs.slice(0..limit).max()
-            val idx = numbs.indexOf(max)
-            front.add(max)
-            numbs.remove(max)
-            cnt -= idx
-        }
+        numbs.removeAt(idx)
+        front.add(max)
+        cnt -= idx
     }
 
-//    println(front.joinToString(" "))
-//    println(numbs.joinToString(" "))
     println((front + numbs).joinToString(" "))
 }
